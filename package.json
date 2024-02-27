@@ -1,0 +1,30 @@
+{
+  "name": "nt-4",
+  "version": "1.0.0",
+  "description": "Najot Ta'lim vazifalari uchun - Javlon Nomozov tomonidan qilingan vazifalar",
+  "main": "app.js",
+  "scripts": {
+    "test": "node --watch app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/javlon-nomozov/najot-talim-4-oy.git"
+  },
+  "keywords": [
+    "nodeJs",
+    "Najot",
+    "Ta'lim",
+    "CV",
+    "FS"
+  ],
+  "author": "Javlon Nomozov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/javlon-nomozov/najot-talim-4-oy/issues"
+  },
+  "homepage": "https://github.com/javlon-nomozov/najot-talim-4-oy#readme",
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "uuid": "^9.0.1"
+  }
+}

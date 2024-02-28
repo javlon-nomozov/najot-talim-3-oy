@@ -1,10 +1,18 @@
-const express = require('express');
+const express = require("express");
 
 // initialize environmental variables
-require('dotenv').config()
+require("dotenv").config();
 
-const app = express()
+const app = express();
 
-const POST = process.PORT
+app.use(express.static('public'));
 
-app.listen()
+const PORT = process.env.PORT;
+
+app.use((req, res) => {
+  res.send('<h1>Hellow</h1>');
+});
+
+app.listen(PORT, () =>
+  console.log(`Server running on http://localhost:${PORT}`)
+);

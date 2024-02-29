@@ -4,6 +4,6 @@
 
 ![Javlon Nomozov logo](https://avatars.githubusercontent.com/u/69708014?v=4)
 
-## 2 - Dars topshiriqlari:
+## 3 - Dars topshiriqlari:
 
-Darsdagi kodlarni yozish va keyin videoni ohiridagi topshiriqni bajarish (ya'ni user uchun funksiyalarni yozib chiqish, hamda guide uchun ham yozib chiqish) - videoni ko'ring, videodagi kodlar pastda, videodagi topshiriqni bajaring - JSON nima ekanligi bo'yicha izlanish
+Tesla.com websiteini qilib chiqish static pagelarini express.js bilan routingni amalga oshirish. (Eng asosiy qismi bu navigatsion va routing. Bootstrapni ishlatish ixtiyoriy) - Internet qanday ishlaydi Azimjon Po'latov videosini ko'rish - Darsda o'tilgan kodlarni albatta yozib ko'ring

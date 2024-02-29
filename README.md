@@ -7,4 +7,5 @@
 ![Javlon Nomozov logo](https://avatars.githubusercontent.com/u/69708014?v=4)
 
 ## Darslar :
-[2-Dars - npm-local-modules-JSON](https://github.com/javlon-nomozov/najot-talim-4-oy/tree/lesson-2)
+[2-Dars vazifa - npm-local-modules-JSON](https://github.com/javlon-nomozov/najot-talim-4-oy/tree/lesson-2)
+[3-Dars vazifa - Tesla.com website ning sodda nusxasi](https://github.com/javlon-nomozov/najot-talim-4-oy/tree/lesson-3-hw)

@@ -6,38 +6,52 @@ const { v4: uuid } = require("uuid");
 const filePath = path(__dirname, "..", "db", "cars.json");
 
 const validator = (car) => {
-  if (
-    car.id &&
-    !(typeof car.id === "string" || typeof car.id === "number")
-  ) {
+  // model, price, image, videoId
+  if (car.id && !(typeof car.id === "string" || typeof car.id === "number")) {
     throw new Error("Car id should be String or Number");
   }
   if (!(typeof car.model === "string")) {
     throw new Error("Car model should be String");
   }
-  if (!(typeof car.price === 'number')) {
+  if (!(typeof car.price === "number")) {
     throw new Error("Car price should be number");
+  }
+  if (!(typeof car.image === "string")) {
+    throw new Error("Car image should be string");
+  }
+  if (!(typeof car.videoId === "string")) {
+    throw new Error("Car videoId should be string");
+  }
+  if (!(typeof car.description === "string")) {
+    throw new Error("Car description should be string");
   }
   return car;
 };
 
 // create
-function addGuide(title, content) {
+function addCar(model, price, image, videoId, description) {
   return new Promise(async (res, rej) => {
-    let guides;
+    let cars;
     try {
-      const newGuide = validator({ id: uuid(), title, content });
+      const newCar = validator({
+        id: uuid(),
+        model,
+        price,
+        image,
+        videoId,
+        description,
+      });
       try {
-        guides = await getAllGuides();
+        cars = await getAllCars();
       } catch (error) {
-        guides = [];
+        cars = [];
       }
-      guides.push(newGuide);
-      fs.writeFile(filePath, JSON.stringify(guides), (err) => {
+      cars.push(newCar);
+      fs.writeFile(filePath, JSON.stringify(cars), (err) => {
         if (err) {
           return rej(err);
         }
-        res(newGuide);
+        res(newCar);
       });
     } catch (error) {
       rej(error);
@@ -45,30 +59,7 @@ function addGuide(title, content) {
   });
 }
 
-
-function addGuide(title, content) {
-  return new Promise(async (res, rej) => {
-    let guides;
-    try {
-      const newGuide = validator({ id: uuid(), title, content });
-      try {
-        guides = await getAllGuides();
-      } catch (error) {
-        guides = [];
-      }
-      guides.push(newGuide);
-      fs.writeFile(filePath, JSON.stringify(guides), (err) => {
-        if (err) {
-          return rej(err);
-        }
-        res(newGuide);
-      });
-    } catch (error) {
-      rej(error);
-    }
-  });
-}
-// addGuide('Node js','Node js asoslar')
+// addCar("tesla Model x",200,'model-x.jpg','FjS2LzrHEO8')
 
 // read
 function getAllCars() {
@@ -82,48 +73,44 @@ function getAllCars() {
   });
 }
 
-function getAllGuides() {
+function getCarById(id) {
   return new Promise((res, rej) => {
     fs.readFile(filePath, (err, data) => {
       if (err) {
         return rej(err);
       }
-      res(JSON.parse(data.toString()));
-    });
-  });
-}
-
-function getGuideById(id) {
-  return new Promise((res, rej) => {
-    fs.readFile(filePath, (err, data) => {
-      if (err) {
-        return rej(err);
-      }
-      res(_.filter(JSON.parse(data.toString()), (guide) => guide.id === id));
+      res(_.filter(JSON.parse(data.toString()), (car) => car.id === id));
     });
   });
 }
 
 // update
-function updateGuideById(id, { title, content }) {
+function updateCarById(id, { model, price, image, videoId, description }) {
   return new Promise(async (res, rej) => {
     try {
-      const updatedGuide = validator({ id, title, content });
-      let guides = await getAllGuides();
+      const updatedCar = validator({
+        id,
+        model,
+        price,
+        image,
+        videoId,
+        description,
+      });
+      let cars = await getAllCars();
       let existGuide;
-      guides = guides.filter((el) => {
+      cars = cars.filter((el) => {
         if (el.id === id) {
           existGuide = el;
         } else {
           return true;
         }
       });
-      guides.push(updatedGuide);
-      fs.writeFile(filePath, JSON.stringify(guides), (err) => {
+      cars.push(updatedCar);
+      fs.writeFile(filePath, JSON.stringify(cars), (err) => {
         if (err) {
           return rej(err);
         }
-        res(updatedGuide);
+        res(updatedCar);
       });
     } catch (error) {
       rej(error);
@@ -132,35 +119,34 @@ function updateGuideById(id, { title, content }) {
 }
 
 // delete
-function deleteGuideById(id) {
+function deleteCarById(id) {
   return new Promise(async (res, rej) => {
     try {
-      let guides = await getAllGuides();
-      let existGuide;
-      guides = guides.filter((el) => {
+      let cars = await getAllCars();
+      let existCar;
+      cars = cars.filter((el) => {
         if (el.id === id) {
-          existGuide = el;
+          existCar = el;
         } else {
           return true;
         }
       });
-      fs.writeFile(filePath, JSON.stringify(guides), (err) => {
+      fs.writeFile(filePath, JSON.stringify(cars), (err) => {
         if (err) {
           return rej(err);
         }
-        res(existGuide);
       });
+      res(existCar);
     } catch (error) {
       rej(error);
     }
   });
 }
-// deleteGuideById("1");
 
 module.exports = {
-  addGuide,
-  getAllGuides,
-  getGuideById,
-  updateGuideById,
-  deleteGuideById,
+  addCar,
+  getAllCars,
+  getCarById,
+  updateCarById,
+  deleteCarById,
 };

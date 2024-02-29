@@ -74,10 +74,21 @@
       </nav>
     </header>
     <main>
+      <div class="car-info">
+        <h2>Car Model</h2>
+        <p>Price: $XXXXX</p>
+        <p>
+          Description: Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+          Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+        </p>
+      </div>
       <section class="car-detail">
-        <div id="ytplayer"></div>
+        <div>
+          <div id="ytplayer"></div>
+        </div>
       </section>
     </main>
+    <!-- <script src="script.js"></script> -->
     <script>
       // This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement("script");
@@ -91,7 +102,7 @@
         player = new YT.Player("ytplayer", {
           height: "360",
           width: "640",
-          videoId: "{video_id}",
+          videoId: "FjS2LzrHEO8",
           playerVars: {
             autoplay: 1,
             mute: 1,

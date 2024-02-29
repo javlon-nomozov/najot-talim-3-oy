@@ -1,37 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Car Shop - Home</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header>
-        <h1>Welcome to our Car Shop</h1>
-        <nav>
-            <ul>
-                <li><a href="index.html">Home</a></li>
-                <li><a href="about.html">About</a></li>
-            </ul>
-        </nav>
-    </header>
-    <main>
-        <section class="car-list">
-            <!-- Car list content will be dynamically generated here -->
-            <div class="car">
-                <img src="https://hips.hearstapps.com/hmg-prod/images/bmw-m5-touring-rendering-6578b8a34ce4b.jpg?crop=1.00xw:0.994xh;0,0.00562xh&resize=980:*" alt="Car 1">
-                <h2>Car 1</h2>
-                <p>Description of Car 1</p>
-            </div>
-            <div class="car">
-                <img src="https://hips.hearstapps.com/hmg-prod/images/bmw-vision-neue-klasse-concept-car5-64ecd9b81229e.jpg?crop=1.00xw:0.753xh;0,0.166xh&resize=1200:*" alt="Car 2">
-                <h2>Car 2</h2>
-                <p>Description of Car 2</p>
-            </div>
-            <!-- Add more cars as needed -->
-        </section>
-    </main>
-    <script src="script.js"></script>
-</body>
-</html>
+<main>
+  <section class="car-list">
+    <div class="car-box">
+        <a href="/car/${{id}}"></a>
+      <img
+        src="${{image}}"
+        alt="${{title}}"
+      />
+      <h2>${{title}}</h2>
+      <p>${{description}}</p>
+    </div>
+    <div class="car-box">
+      <img
+        src="https://hips.hearstapps.com/hmg-prod/images/bmw-m5-touring-rendering-6578b8a34ce4b.jpg?crop=1.00xw:0.994xh;0,0.00562xh&resize=980:*"
+        alt="Car 2"
+      />
+      <h2>Car 2</h2>
+      <p>Description of Car 2</p>
+    </div>
+    <!-- Add more car boxes as needed -->
+  </section>
+</main>

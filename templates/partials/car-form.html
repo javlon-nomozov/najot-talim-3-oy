@@ -1,0 +1,20 @@
+<main>
+    <form id="car-form" class="car-form" action="${{action}}" method="post">
+        <label for="model">Model:</label>
+        <input type="text" id="model" name="model" value="${{model}}" required>
+
+        <label for="price">Price:</label>
+        <input type="number" id="price" name="price" value="${{price}}" required>
+
+        <label for="image">Image url:</label>
+        <input type="text" id="image" name="image" value="${{image}}" required>
+
+        <label for="videoId">Youtube video id:</label>
+        <input type="text" id="videoId" name="videoId" value="${{videoId}}" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" name="description" required>${{description}}</textarea>
+
+        <button type="submit" class="btn">Add Car</button>
+    </form>
+</main>

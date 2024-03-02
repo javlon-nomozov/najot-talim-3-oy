@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Home</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="alert" id="alert">
+        <span
+          >Kodlarda ishlatilgan html, css qisimlarini va mahsulotlar ro'yxatlari
+          chatGPT dan olindi <br />Mentorimiz Arraylarni chatGPT dan olishimiz
+          mumkunligini aytgandilar darsda, lekin html va css kodlar haqida
+          aytmagan </span
+        >
+        <button class="close-btn" onclick="closeAlert()">×</button>
+      </div>
+
+      <h1>Mahsulotlar:</h1>
+      <ul>
+        <% lists.forEach(list => { %>
+        <li>
+          <a href="/<%= list %>">
+            <% if (list == 'smartwatches') { %> Smart soatlar <% } else { %> <%=
+            list %> <% } %>
+          </a>
+        </li>
+        <% }); %>
+      </ul>
+    </div>
+
+    <script>
+      function closeAlert() {
+        var alert = document.getElementById("alert");
+        alert.style.display = "none";
+      }
+    </script>
+  </body>
+</html>

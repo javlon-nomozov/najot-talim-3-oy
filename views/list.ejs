@@ -1,0 +1,34 @@
+<!-- list.ejs -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      <% if (listName == 'smartwatches') { %> Smart soatlar <% } else { %> <%= listName
+      %> <% } %>
+    </title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1>
+        <% if (listName == 'smartwatches') { %> Smart soatlar <% } else { %> <%=
+        listName %> <% } %>
+      </h1>
+      <ul>
+        <% listItems.forEach(item => { %>
+        <li><%= item.model %> - $<%= item.price %></li>
+        <% }); %>
+      </ul>
+      <div class="navigation">
+        <% if (page > 1) { %>
+        <a href="/<%= listName %>?page=<%= page - 1 %>" class="btn">Previous</a>
+        <% } %> <% if (page < totalPages) { %>
+        <a href="/<%= listName %>?page=<%= page + 1 %>" class="btn">Next</a>
+        <% } %>
+      </div>
+      <a href="/" class="btn back-link">Back to Home</a>
+    </div>
+  </body>
+</html>

@@ -4,6 +4,11 @@
 
 ![Javlon Nomozov logo](https://avatars.githubusercontent.com/u/69708014?v=4)
 
-## 2 - Dars topshiriqlari:
+## 4 - Dars topshiriqlari:
 
-Darsdagi kodlarni yozish va keyin videoni ohiridagi topshiriqni bajarish (ya'ni user uchun funksiyalarni yozib chiqish, hamda guide uchun ham yozib chiqish) - videoni ko'ring, videodagi kodlar pastda, videodagi topshiriqni bajaring - JSON nima ekanligi bo'yicha izlanish
+10 ta turli xil obyekt uchun massiv yaratib oling (misol uchun foydalanuvchilar ro'yxati, maxulotlar ro'yxati va hokazo). Ularni ejs orqali list qiling. localhost:3000 ga kirganda sizda mavjud listlar link bo'lib chiqsin, keyin linkni ustiga bossa ro'yxat ko'rinsin. Misol uchun "List of users" degan linkni ustiga bossam foydalanuvchilar ro'yxati ko'rinsin. Asosiy sahifada 10 ta link bo'ladi shunaga. Buni faqat o'zingiz qiling. Agar yodamchi ustoz ikki o'quvchida bir xil obyektlardan foydalanilganini sezsa ikkingizga ham 0 ball qo'yadi. Bundan tashqari ejsda if lar bilan ham ishlang
+
+## Note by developer
+
+!Warning: Kodlarda ishlatilgan html, css kodlarining ko'p qismi va mahsulotlar ro'yxatlari chatGPT dan olindi
+Mentorimiz Arraylarni chatGPT dan olishimiz mumkunligini aytgandilar darsda, lekin html va css kodlar haqida aytmagan

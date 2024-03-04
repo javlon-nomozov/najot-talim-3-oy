@@ -2,11 +2,11 @@
   "name": "nt-4",
   "version": "1.0.0",
   "description": "Najot Ta'lim vazifalari uchun - Javlon Nomozov tomonidan qilingan vazifalar",
-  "main": "app.js",
+  "main": "/src/app.js",
   "scripts": {
-    "start": "node app",
-    "test": "node --watch app",
-    "dev": "nodemon app"
+    "start": "node ./src/app",
+    "test": "node --watch ./src/app",
+    "dev": "nodemon ./src/app"
   },
   "repository": {
     "type": "git",

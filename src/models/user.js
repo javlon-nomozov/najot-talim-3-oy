@@ -52,8 +52,7 @@ function getAllUsers() {
         err.code = 801;
         return rej(err);
       }
-      console.log({ data: data.toString() });
-      res(JSON.parse(data.toString()||'[]'));
+      res(JSON.parse(data.toString() || "[]"));
     });
   });
 }
@@ -71,22 +70,18 @@ function getUserById(id) {
 }
 
 // update
-function updateUserById(
-  id,
-  { firstName, lastName, age, username, role, password }
-) {
+function updateUserById(id, updatedUser) {
   return new Promise(async (res, rej) => {
     let users = await getAllUsers();
     let userExist;
     users = users.map((user) => {
       if (user.id === id) {
-        userExist = true;
-        user.firstName = firstName || user.firstName;
-        user.lastName = lastName || user.lastName;
-        user.age = age || user.age;
-        user.username = username || user.username;
-        user.role = role || user.role;
-        user.password = password || user.password;
+        userExist = user;
+        user.firstName = updatedUser.firstName || user.firstName;
+        user.lastName = updatedUser.lastName || user.lastName;
+        user.age = updatedUser.age || user.age;
+        user.username = updatedUser.username || user.username;
+        user.role = updatedUser.role || user.role;
       }
       return user;
     });
@@ -96,13 +91,14 @@ function updateUserById(
           err.code = 801;
           return rej(err);
         }
-        res({ id, firstName, lastName, age, username, role, password });
+        res({ id, ...userExist });
       });
     } else {
-      return false;
+      return res({});
     }
   });
 }
+
 
 // delete
 function deleteUserById(id) {

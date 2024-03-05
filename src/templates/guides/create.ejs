@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Guide</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <link rel="stylesheet" href="/assets/form.css" />
+  </head>
+  <body>
+    <%- include('../partials/navbar.ejs') %>
+    <div class="breadcrumb">
+      <span class="breadcrumb-item"><a href="/">Home</a></span
+      >/ <span class="breadcrumb-item"><a href="/guides">Guides</a></span
+      >/
+      <span class="breadcrumb-item">Create</span>
+    </div>
+
+    <div class="container">
+      <% if (data.message) { %>
+
+      <div class="alert" id="alert">
+        <span><%- data.message %> </span>
+        <button class="close-btn" onclick="closeAlert()">X</button>
+      </div>
+      <% } %>
+
+      <div class="form-container">
+        <h2>Create Guide</h2>
+        <form action="/guides/create" method="POST">
+          <div class="form-group">
+            <label for="title">Title:</label>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              value="<%= guide.title %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="content">Last Name:</label>
+            <textarea type="text" id="content" name="content" required><%- guide.content %></textarea>
+          </div>
+
+          <div class="form-group">
+            <input type="submit" value="Create" />
+          </div>
+
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

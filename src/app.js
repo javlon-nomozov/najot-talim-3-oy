@@ -4,29 +4,26 @@ const { join: path } = require("path");
 const app = express();
 
 // importing routers
-const pages = require('./routes/pages')
-const users = require('./routes/users')
-const guides = require('./routes/guides')
+const users = require("./routes/users");
+const auth = require("./routes/auth");
 
 // use body parser
 app.use(express.urlencoded({ extended: false }));
-
-// Set EJS as view engine
-app.set("view engine", "ejs");
-app.set("views", path(__dirname, "templates"));
+app.use(express.json())
 
 // Set EJS as static folder
 app.use("/assets", express.static(path(__dirname, "public")));
 
-// init routers
-app.use(pages)
-app.use('/users',users)
-app.use('/guides',guides)
-
-app.use((req, res) => {
-  res.render('./error/404', {data:{message:'Page Not Found'}})
-  // res.send("404 error");
+app.get("/", (req, res) => {
+  res.sendFile(path(__dirname,"../front/index.html"));
 });
+
+
+app.use("/auth", auth);
+// app.use((req, res) => {
+//   res.render('./error/404', {data:{message:'Page Not Found'}})
+//   // res.send("404 error");
+// });
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

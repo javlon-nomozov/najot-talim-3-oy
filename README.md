@@ -6,7 +6,4 @@
 
 ## 4 - Dars topshiriq - ERP Guide project:
 
-
-## Note by developer
-!Warning: Kodlarda ishlatilgan html, css kodlarining ko'p qismi va mahsulotlar ro'yxatlari chatGPT dan olindi
-Mentorimiz Arraylarni chatGPT dan olishimiz mumkunligini aytgandilar darsda, lekin html va css kodlar haqida aytmagan
+Hozir bizda users, ya'ni foydalanuvchilarni CRUD qilib chiqdik. - birinchi vazifa darsda yozilgan kodlar bilan sinxronlashib siz ham o'zingizdagi kodlarda users'ni crud qilib chiqing - ikkinchi vazida guides, ya'ni tartiblarni CRUD qilib chiqing. Bunda darsda yozildan users CRUDni na'muna sifatida foydalaning

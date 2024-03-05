@@ -10,3 +10,6 @@
 
 - [2-Dars vazifa - npm-local-modules-JSON](https://github.com/javlon-nomozov/najot-talim-4-oy/tree/lesson-2)
 - [3-Dars vazifa - Tesla.com website ning sodda nusxasi](https://github.com/javlon-nomozov/najot-talim-4-oy/tree/lesson-3-hw)
+- [4-Dars vazifa - EJS project](https://github.com/javlon-nomozov/najot-talim-4-oy/tree/lesson-4-ejs)
+- [4-Dars vazifa - ERP Guide project](https://github.com/javlon-nomozov/najot-talim-4-oy/tree/lesson-4-erp-guide)
+- [5-Dars vazifa - ERP Guide project](https://github.com/javlon-nomozov/najot-talim-4-oy/tree/lesson-5-erp-guide)

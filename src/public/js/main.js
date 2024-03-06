@@ -1,16 +1,29 @@
 async function main() {
-  let command = prompt(`
+  const menu = `
   1. Registratsiya
-  2. Kirish
-  2. Barcha Foydalanuvchilar
+  // 2. Kirish
+  3. Barcha Foydalanuvchilar
   3. Chiqish
-  `);
-  if (command === "1") {
-    await addUser();
-  } else if (command === "2") {
-    await login();
-  } else if (command === "3") {
-    await getAllUsers();
+  `
+  checker: while(true){
+    let command = prompt(menu);
+    switch(command){
+      case '1':{
+        await addUser();
+        break;
+      }
+      case '2':{
+        await login();
+        break;
+      }
+      case '3':{
+        await getAllUsers();
+        break;
+      }
+      case '4':{
+        break checker;
+      }
+    }
   }
 }
 
@@ -26,14 +39,16 @@ async function addUser() {
     age = await window.prompt("(raqamlarda) Yoshi:");
   }
   const username = await window.prompt("Login:");
-  let password = await window.prompt("Diqqat parol 6 ta belgidan kam bo'lmasin\nParol:");
+  let password = await window.prompt(
+    "Diqqat parol 6 ta belgidan kam bo'lmasin\nParol:"
+  );
   let password2 = await window.prompt("Parolni qaytaring:");
   while (password !== password2) {
-    password = await window.prompt("!!!Parollar mos kelmadi qayta kiriting\nParol:");
-    password2 = await window.prompt(
-      "Parolni qaytaring:"
+    password = await window.prompt(
+      "!!!Parollar mos kelmadi qayta kiriting\nParol:"
     );
-    while (password.length < 5){
+    password2 = await window.prompt("Parolni qaytaring:");
+    while (password.length > 5) {
       password2 = await window.prompt(
         "Paroldagi beldilar soni 6 tadan kam!\nParolni qaytaring:"
       );
@@ -53,10 +68,11 @@ async function addUser() {
       age: Number(age),
     }), // Collect form data
   };
-  console.log(options);
   fetch("http://localhost:3000/auth/register", options)
     .then((response) => response.text()) // Read response as text
-    .then((data) => console.log(data));
+    .then((data) => {
+      /*console.log(data)*/
+    });
 }
 
 async function getAllUsers() {
@@ -71,7 +87,13 @@ async function getAllUsers() {
       (msg += `${i + 1} - ${el.firstName} ${el.lastName}\n ${
         el.age
       } yoshda\n  ${
-        el.role === "staff" ? "Xodim" : el.role == "admin" ? "Admin" : el.role == "user" ? "Foydalanuvchi": 'Xato malumot'
+        el.role === "staff"
+          ? "Xodim"
+          : el.role == "admin"
+          ? "Admin"
+          : el.role == "user"
+          ? "Foydalanuvchi"
+          : "Xato malumot"
       }\n\n`)
   );
   prompt(msg);
@@ -79,11 +101,11 @@ async function getAllUsers() {
   // Read response as text
 }
 
-async function login(){
+async function login() {
   const body = {};
-  let msg = ''
+  let msg = "";
   const command = await prompt(msg);
-  await fetch('/auth/login',{method: 'post',body:{}})
+  await fetch("/auth/login", { method: "post", body: {} });
 }
 
 // function addUser(user) {
@@ -94,7 +116,6 @@ async function login(){
 //     .then((response) => response.text()) // Read response as text
 //     .then((data) => alert(data));
 // }
-
 
 // if (typeof(Storage) !== "undefined") {
 //   // Code for localStorage/sessionStorage.

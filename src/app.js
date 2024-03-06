@@ -20,6 +20,7 @@ app.get("/", (req, res) => {
 
 
 app.use("/auth", auth);
+app.use("/users", users);
 // app.use((req, res) => {
 //   res.render('./error/404', {data:{message:'Page Not Found'}})
 //   // res.send("404 error");

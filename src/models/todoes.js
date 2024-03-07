@@ -27,6 +27,33 @@ function addTodo(user_id, guide_id, compleated) {
   });
 }
 
+// create
+function addManyTodoes(guide_id, user_id_list=[]) {
+  return new Promise(async (res, rej) => {
+    let todoes;
+    let newTodoes = [];
+    try {
+      todoes = await getAllTodoes({ join: false });
+    } catch (error) {
+      todoes = [];
+    }
+    for (let i = 0; i < user_id_list.length; i++) {
+      const user_id = user_id_list[i];
+      console.log({user_id});
+
+      const newTodoe = { id: uuid(), user_id, guide_id, compleated: false };
+      newTodoes.push(newTodoe);
+    }
+    console.log({todoes});
+    fs.writeFile(filePath, JSON.stringify(todoes.concat(newTodoes)), (err) => {
+      if (err) {
+        return rej(err);
+      }
+      res(newTodoes);
+    });
+  });
+}
+
 // read
 function getAllTodoes({ join } = { join: true }) {
   return new Promise((res, rej) => {
@@ -64,7 +91,7 @@ function getTodoById(id, { join } = { join: true }) {
         JSON.parse(data.toString()),
         (todo) => todo.id === id
       );
-      
+
       for (let i = 0; i < parsedData.length; i++) {
         const todo = parsedData[i];
         const user = (await getUserById(todo.user_id))[0];
@@ -86,7 +113,7 @@ function getTodoById(id, { join } = { join: true }) {
 // update
 function updateTodoById(id, { user_id, guide_id, compleated }) {
   return new Promise(async (res, rej) => {
-    let todoes = await getAllTodoes();
+    let todoes = await getAllTodoes({ join: false });
     let todoExist;
     todoes = todoes.map((todo) => {
       if (todo.id === id) {
@@ -112,7 +139,7 @@ function updateTodoById(id, { user_id, guide_id, compleated }) {
 // delete
 function deleteTodoById(id) {
   return new Promise(async (res, rej) => {
-    let todoes = await getAllTodoes();
+    let todoes = await getAllTodoes({ join: false });
     let todoExist;
     todoes = todoes.filter((el) => {
       if (el.id !== id) {
@@ -136,6 +163,7 @@ function deleteTodoById(id) {
 
 module.exports = {
   addTodo,
+  addManyTodoes,
   getAllTodoes,
   getTodoById,
   updateTodoById,

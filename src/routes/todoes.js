@@ -3,6 +3,7 @@ const {
   addTodo,
   getTodoById,
   deleteTodoById,
+  addManyTodoes,
 } = require("../models/todoes");
 
 const { getAllUsers } = require("../models/user");
@@ -13,7 +14,7 @@ const router = require("express").Router();
 // all todoes
 router.get("/", async (req, res) => {
   const todoes = await getAllTodoes();
-//   console.log({ todoes: todoes[0] });
+    // console.log({ todoes: todoes[0] });
   res.render("todoes/list", { data: {}, todoes });
 });
 
@@ -29,15 +30,21 @@ router.post("/create", async (req, res) => {
   const data = {};
   const users = await getAllUsers();
   const guides = await getAllGuides();
-  try {
-    const newTodo = await addTodo(user_id, guide_id, false);
-    res.redirect(String(newTodo.id));
-  } catch (error) {
-    data.message = error;
-    res.render("todoes/create", { data, todo: req.body, users, guides });
-    // if (error.code === 802) {
-    // console.log(error);
-    // }
+  if (user_id !== "all") {
+    try {
+      const newTodo = await addTodo(user_id, guide_id);
+      res.redirect(String(newTodo.id));
+    } catch (error) {
+      data.message = error;
+      res.render("todoes/create", { data, todo: req.body, users, guides });
+      // if (error.code === 802) {
+      // console.log(error);
+      // }
+    }
+  }else{
+    await addManyTodoes(guide_id, (users.map(user=>user.id)))
+    console.log('all');
+    res.end('salom')
   }
 });
 

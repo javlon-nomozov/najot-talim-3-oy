@@ -302,3 +302,37 @@ main {
 .breadcrumb-item:last-child {
   font-weight: bold;
 }
+
+.notification-item {
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  margin-bottom: 2px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #575656;
+  background-color: #f0f0f0;
+  border-color: #f0f0f0;
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+}
+
+.notification-item input[type="checkbox"] {
+  margin-right: 10px;
+  display: none; /* Hide the checkbox */
+}
+
+.notification-item.selected {
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #721c24;
+  background-color: #f8d7da;
+  border-color: #f5c6cb;
+}
+
+#selectedCount {
+  margin-bottom: 20px;
+  opacity: 0;
+  /* display: none; // Hide selected count by default */
+}

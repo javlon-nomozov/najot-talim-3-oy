@@ -31,6 +31,7 @@
           <div class="form-group">
             <label for="user">Select User:</label>
             <select name="user" id="user">
+              <option value="all" >All Users</option>
               <% users.forEach(user => { %>
               <option value="<%= user.id %>" <%= todo.user === user.id ? 'selected': '' %> >
                 <%= user.firstName %> <%= user.lastName %>

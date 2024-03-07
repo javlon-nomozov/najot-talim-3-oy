@@ -11,26 +11,34 @@
     <%- include('./partials/navbar.ejs') %>
     <div class="container">
       <% if (data.message) { %>
-
+        <br>
       <div class="alert" id="alert">
         <span> <%- data.message %> </span>
         <button class="close-btn" onclick="closeAlert()">X</button>
       </div>
       <% } %>
       <div class="item-cards">
+        <br>
         <div class="item-card">
           <a href="/users">
-            <h2>Foydalanuvchilar</h2>
+            <h2>Users</h2>
           </a>
           <br>
           <a href="/users/create" class="btn">Create User</a>
         </div>
         <div class="item-card">
           <a href="/guides">
-            <h2>Qoidalar</h2>
+            <h2>Guides</h2>
           </a>
           <br>
-          <a href="/guides/create" class="btn">Create User</a>
+          <a href="/guides/create" class="btn">Create Guide</a>
+        </div>
+        <div class="item-card">
+          <a href="/todoes">
+            <h2>Todoes</h2>
+          </a>
+          <br>
+          <a href="/todoes/create" class="btn">Create Todoes</a>
         </div>
       </div>
     </div>

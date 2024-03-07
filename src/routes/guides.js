@@ -5,6 +5,7 @@ const {
   getGuideById,
   updateGuideById,
   deleteGuideById,
+  getSentGuideCout,
 } = require("../models/guides");
 
 // all guide
@@ -34,9 +35,8 @@ router.post("/create", async (req, res) => {
 });
 
 router.get("/:id/delete", async (req, res) => {
-  console.log("guide");
+  const data = {}
   const guide = await getGuideById(req.params.id);
-  console.log(guide);
   if (guide.length !== 0) {
     res.render("guides/delete", { data: {}, guide: guide[0] });
   } else {
@@ -46,7 +46,6 @@ router.get("/:id/delete", async (req, res) => {
 
 router.post("/delete", async (req, res) => {
   const guide = await deleteGuideById(req.body.id);
-  console.log(guide);
   if (guide.id !== 0) {
     res.redirect("/guides");
     // res.render("guides/delete", { data: {}, guide: guide[0] });

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Create Todo</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <link rel="stylesheet" href="/assets/form.css" />
+  </head>
+  <body>
+    <%- include('../partials/navbar.ejs') %>
+    <div class="breadcrumb">
+      <span class="breadcrumb-item"><a href="/">Home</a></span
+      >/ <span class="breadcrumb-item"><a href="/todoes">Todoes</a></span
+      >/
+      <span class="breadcrumb-item">Create</span>
+    </div>
+
+    <div class="container">
+      <% if (data.message) { %>
+
+      <div class="alert" id="alert">
+        <span><%- data.message %> </span>
+        <button class="close-btn" onclick="closeAlert()">X</button>
+      </div>
+      <% } %>
+
+      <div class="form-container">
+        <h1>Create Notification</h1>
+        <form action="/todoes/create" method="POST">
+          <div class="form-group">
+            <label for="user">Select User:</label>
+            <select name="user" id="user">
+              <% users.forEach(user => { %>
+              <option value="<%= user.id %>" <%= todo.user === user.id ? 'selected': '' %> >
+                <%= user.firstName %> <%= user.lastName %>
+              </option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="guide">Select Guide:</label>
+            <select name="guide" id="guide">
+              <% guides.forEach(guide => { %>
+              <option value="<%= guide.id %>"  <%= todo.guide === guide.id ? 'selected': '' %> ><%= guide.title %></option>
+              <% }); %>
+            </select>
+          </div>
+          <div class="form-group">
+            <button type="submit" class="btn">Create Notification</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

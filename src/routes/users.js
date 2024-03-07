@@ -41,9 +41,7 @@ router.post("/create", async (req, res) => {
 });
 
 router.get("/:id/delete", async (req, res) => {
-  console.log("user");
   const user = await getUserById(req.params.id);
-  console.log(user);
   if (user.length !== 0) {
     res.render("users/delete", { data: {}, user: user[0] });
   } else {
@@ -53,7 +51,6 @@ router.get("/:id/delete", async (req, res) => {
 
 router.post("/delete", async (req, res) => {
   const user = await deleteUserById(req.body.id);
-  console.log(user);
   if (user.id !== 0) {
     res.redirect('/users')
     // res.render("users/delete", { data: {}, user: user[0] });

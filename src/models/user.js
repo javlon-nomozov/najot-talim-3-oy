@@ -2,6 +2,37 @@ const _ = require("lodash");
 const fs = require("fs");
 const { join: path } = require("path");
 const { v4: uuid } = require("uuid");
+const { getAllGuides } = require("./guides");
+
+function getAllTodoes({ join } = { join: true }) {
+  return new Promise((res, rej) => {
+    fs.readFile(
+      path(__dirname, "..", "db", "todoes.json"),
+      async (err, data) => {
+        if (err) {
+          return rej(err);
+        }
+        const parsedData = JSON.parse(data.toString());
+        // console.log({users});
+        if (join) {
+          const users = {};
+          (await getAllUsers()).forEach((user) => (users[user.id] = user));
+          const guides = {};
+          (await getAllGuides()).forEach((guide) => (guides[guide.id] = guide));
+          res(
+            parsedData.map((todo) => {
+              todo.user = users[todo.user_id];
+              todo.guide = guides[todo.guide_id];
+              return todo;
+            })
+          );
+        } else {
+          res(parsedData);
+        }
+      }
+    );
+  });
+}
 
 const filePath = path(__dirname, "..", "db", "users.json");
 
@@ -98,7 +129,6 @@ function updateUserById(id, updatedUser) {
     }
   });
 }
-
 
 // delete
 function deleteUserById(id) {

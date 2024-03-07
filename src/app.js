@@ -19,9 +19,9 @@ app.set("views", path(__dirname, "templates"));
 app.use("/assets", express.static(path(__dirname, "public")));
 
 // init routers
-app.use(pages)
-app.use('/users',users)
-app.use('/guides',guides)
+app.use(require('./routes/index'))
+// app.use('/users',users)
+// app.use('/guides',guides)
 
 app.use((req, res) => {
   res.render('./error/404', {data:{message:'Page Not Found'}})

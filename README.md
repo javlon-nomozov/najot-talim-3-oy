@@ -4,6 +4,6 @@
 
 ![Javlon Nomozov logo](https://avatars.githubusercontent.com/u/69708014?v=4)
 
-## 4 - Dars topshiriq - ERP Guide project:
+## 5 - Dars topshiriq - ERP Guide project:
 
-Hozir bizda users, ya'ni foydalanuvchilarni CRUD qilib chiqdik. - birinchi vazifa darsda yozilgan kodlar bilan sinxronlashib siz ham o'zingizdagi kodlarda users'ni crud qilib chiqing - ikkinchi vazida guides, ya'ni tartiblarni CRUD qilib chiqing. Bunda darsda yozildan users CRUDni na'muna sifatida foydalaning
+1. /routes papkadagi barcha controller funksiyalarni alohida /controllers papkasiga olib o'tish (bu bo'yicha routes/users.js va controllers/users.js ni na'muna sifatida ishlatish) 2. Tartib tahrirlanayotganda ham "Boshqalarni bildirish" degan narsani tadbiq qilish (bunga tartib yaratishdagi kodlarni na'muna sifatida ishlatishingiz mumkin) 3. Men tomonimdan berilgan darsdagi fidbeklarga ko'ra kamchiliklarni to'g'irlash 4. Loyihada authentication'ni tadbiq etish (videodan ko'rib qilasiz) ! Iloji boricha loyihaning darslar bo'yicha ketayotgan holatiga sinxron ketishga harakat qiling.

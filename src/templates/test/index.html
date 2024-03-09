@@ -1,77 +1,81 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Notifications</title>
-    <link rel="stylesheet" href="../../public/styles.css">
-</head>
-<body>
+    <link rel="stylesheet" href="../../public/styles.css" />
+  </head>
+  <body>
     <div class="container">
       <h1>Notifications</h1>
-      <div id="selectedCount">Selected: <span id="count">0</span></div>
       <form action="/notifications/delete" method="POST" id="deleteForm">
-        <div class="notification-list">
-            <label for="notification_2" class="checkbox-label">
-            <div class="notification-item">
-                  <input
-                    type="checkbox"
-                    name="notificationIds"
-                    value="2"
-                    id="notification_2"
-                    class="checkbox"
-                  />
-                  <span>Titel1</span>
-                </div>
-            </label>
-              <label for="notification_1" class="checkbox-label">
-              <div class="notification-item">
-                  <input
-                    type="checkbox"
-                    name="notificationIds"
-                    value="1"
-                    id="notification_1"
-                    class="checkbox"
-                  />
-                  <span>Titele2</span>
-                </div>
-            </label>
-        </div>
         <div class="form-group">
-          <button type="submit" class="btn delete" id="deleteButton" disabled>Delete Selected</button>
+          <button type="submit" class="btn delete" id="deleteButton" disabled>
+            Delete Selected
+          </button>
+          <div id="selectedCount">Selected: <span id="count">0</span></div>
+        </div>
+
+        <div class="notification-list">
+          <label for="notification_2" class="checkbox-label">
+            <div class="item-card">
+              <input
+                type="checkbox"
+                name="notificationIds"
+                value="2"
+                id="notification_2"
+                class="checkbox"
+              />
+              <span>Titel1</span>
+            </div>
+          </label>
+          <label for="notification_1" class="checkbox-label">
+            <div class="item-card">
+              <input
+                type="checkbox"
+                name="notificationIds"
+                value="1"
+                id="notification_1"
+                class="checkbox"
+              />
+              <span>Titele2</span>
+            </div>
+          </label>
         </div>
       </form>
     </div>
     <script>
-        const checkboxes = document.querySelectorAll('.checkbox');
-        const countSpan = document.getElementById('count');
-        const selectedCount = document.getElementById('selectedCount');
-        const deleteButton = document.getElementById('deleteButton');
+      const checkboxes = document.querySelectorAll(".checkbox");
+      const countSpan = document.getElementById("count");
+      const selectedCount = document.getElementById("selectedCount");
+      const deleteButton = document.getElementById("deleteButton");
 
-        checkboxes.forEach(checkbox => {
-            checkbox.addEventListener('change', function() {
-                const parent = this.closest('.notification-item');
-                if (this.checked) {
-                    parent.classList.add('selected');
-                } else {
-                    parent.classList.remove('selected');
-                }
-                updateSelectedCount();
-            });
+      checkboxes.forEach((checkbox) => {
+        checkbox.addEventListener("change", function () {
+          const parent = this.closest(".item-card");
+          if (this.checked) {
+            parent.classList.add("selected");
+          } else {
+            parent.classList.remove("selected");
+          }
+          updateSelectedCount();
         });
+      });
 
-        function updateSelectedCount() {
-            const selectedCheckboxes = document.querySelectorAll('.checkbox:checked');
-            countSpan.textContent = selectedCheckboxes.length;
-            // Hide or show the selected count based on count value
-            if (selectedCheckboxes.length > 0) {
-                selectedCount.style.opacity = 1; // Show if count is greater than 0
-                deleteButton.disabled = false; // Enable delete button if count is greater than 0
-            } else {
-                selectedCount.style.opacity = 0; // Hide if count is 0
-                deleteButton.disabled = true; // Disable delete button if count is 0
-            }
+      function updateSelectedCount() {
+        const selectedCheckboxes =
+          document.querySelectorAll(".checkbox:checked");
+        countSpan.textContent = selectedCheckboxes.length;
+        // Hide or show the selected count based on count value
+        if (selectedCheckboxes.length > 0) {
+          selectedCount.style.opacity = 1; // Show if count is greater than 0
+          deleteButton.disabled = false; // Enable delete button if count is greater than 0
+        } else {
+          selectedCount.style.opacity = 0; // Hide if count is 0
+          deleteButton.disabled = true; // Disable delete button if count is 0
         }
+      }
     </script>
-</body>
+  </body>
 </html>

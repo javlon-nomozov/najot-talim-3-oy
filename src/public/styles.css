@@ -208,6 +208,10 @@ a:hover {
   background-color: #c82333;
 }
 
+.delete:disabled{
+  opacity: 0.5;
+}
+
 .edit {
   background-color: #28a745;
 }
@@ -332,7 +336,8 @@ main {
 }
 
 #selectedCount {
-  margin-bottom: 20px;
+  display: inline-block;
+  /* margin-bottom: 20px; */
   opacity: 0;
   /* display: none; // Hide selected count by default */
 }

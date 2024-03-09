@@ -100,6 +100,19 @@ function getUserById(id) {
   });
 }
 
+
+function getUserByUsername(username) {
+  return new Promise((res, rej) => {
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        err.code = 801;
+        return rej(err);
+      }
+      res(_.filter(JSON.parse(data.toString()), (user) => user.username === username));
+    });
+  });
+}
+
 // update
 function updateUserById(id, updatedUser) {
   return new Promise(async (res, rej) => {
@@ -164,6 +177,7 @@ module.exports = {
   addUser,
   getAllUsers,
   getUserById,
+  getUserByUsername,
   updateUserById,
   deleteUserById,
 };

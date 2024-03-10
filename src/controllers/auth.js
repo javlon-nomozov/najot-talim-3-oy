@@ -16,7 +16,6 @@ module.exports.loginPage = (req, res) => {
 };
 
 module.exports.login = async (req, res) => {
-  console.log(req.session.user);
   const data = { message: "Incorrect password or username" };
   const { username, password } = req.body;
   const [foundUser] = await getUserByUsername(username);

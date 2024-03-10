@@ -34,9 +34,6 @@ exports.createGude = async (req, res) => {
   } catch (error) {
     data.message = error;
     res.render("guides/create", { data, guide: req.body });
-    // if (error.code === 802) {
-    // console.log(error);
-    // }
   }
 };
 

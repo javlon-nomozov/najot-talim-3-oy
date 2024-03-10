@@ -39,9 +39,6 @@ exports.createUser = async (req, res) => {
   } catch (error) {
     data.message = error;
     res.render("users/create", { data, user: req.body });
-    // if (error.code === 802) {
-    // console.log(error);
-    // }
   }
 };
 

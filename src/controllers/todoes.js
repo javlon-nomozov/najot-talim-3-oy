@@ -44,9 +44,6 @@ exports.createTodo = async (req, res) => {
     } catch (error) {
       data.message = error;
       res.render("todoes/create", { data, todo: req.body, users, guides });
-      // if (error.code === 802) {
-      // console.log(error);
-      // }
     }
   } else {
     await addManyTodoes(

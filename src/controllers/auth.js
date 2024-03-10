@@ -1,23 +1,28 @@
 const express = require("express");
-const { getUserById, getUserByUsername } = require("../models/user");
+
 /**
  * @param {express.Request} req
  * @param {express.Response} res
  * @param {express.NextFunction} next
  */
 
+const { getUserByUsername } = require("../models/user");
+
 module.exports.loginPage = (req, res) => {
+  if (req.session.user) {
+    return res.redirect("/");
+  }
   res.render("./auth/login", { data: {} });
 };
 
 module.exports.login = async (req, res) => {
+  console.log(req.session.user);
   const data = { message: "Incorrect password or username" };
-  console.log(req.body);
   const { username, password } = req.body;
-  const foundUser = await getUserByUsername(username);
-  console.log(foundUser, foundUser.password !== password);
+  const [foundUser] = await getUserByUsername(username);
   if (!foundUser || foundUser.password !== password) {
-    res.render("./auth/login", { data });
+    return res.render("./auth/login", { data });
   }
-  res.end();
+  req.session.user = foundUser;
+  res.redirect("/");
 };

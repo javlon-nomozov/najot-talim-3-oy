@@ -25,3 +25,8 @@ module.exports.login = async (req, res) => {
   req.session.user = foundUser;
   res.redirect("/");
 };
+
+exports.logout = (req, res) => {
+  req.session.user = null;
+  res.redirect("/auth/login");
+};

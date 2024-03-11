@@ -15,7 +15,7 @@ const {
 
 exports.allUsersPage = async (req, res) => {
   const users = await getAllUsers();
-  res.render("users/list", { data: {}, users });
+  res.render("users/list", { data: { user: req.session.user }, users });
 };
 
 exports.createUserPage = (req, res) => {
@@ -25,7 +25,7 @@ exports.createUserPage = (req, res) => {
 
 exports.createUser = async (req, res) => {
   const { firstName, lastName, age, username, role, password } = req.body;
-  const data = {};
+  const data = { user: req.session.user };
   try {
     const newUser = await addUser(
       firstName,
@@ -45,9 +45,14 @@ exports.createUser = async (req, res) => {
 exports.deleteUserPage = async (req, res) => {
   const user = await getUserById(req.params.id);
   if (user.length !== 0) {
-    res.render("users/delete", { data: {}, user: user[0] });
+    res.render("users/delete", {
+      data: { user: req.session.user },
+      user: user[0],
+    });
   } else {
-    res.render("./error/404", { data: { message: "User Not Found" } });
+    res.render("./error/404", {
+      data: { message: "User Not Found", user: req.session.user },
+    });
   }
 };
 
@@ -57,7 +62,9 @@ exports.deleteUser = async (req, res) => {
     res.redirect("/users");
     // res.render("users/delete", { data: {}, user: user[0] });
   } else {
-    res.render("./error/404", { data: { message: "User Not Found" } });
+    res.render("./error/404", {
+      data: { message: "User Not Found", user: req.session.user },
+    });
   }
 };
 
@@ -66,16 +73,23 @@ exports.userPage = async (req, res) => {
   if (user.length !== 0) {
     res.render("users/details", { data: {}, user: user[0] });
   } else {
-    res.render("./error/404", { data: { message: "User Not Found" } });
+    res.render("./error/404", {
+      data: { message: "User Not Found", user: req.session.user },
+    });
   }
 };
 
 exports.editUserPage = async (req, res) => {
   const user = await getUserById(req.params.id);
   if (user.length !== 0) {
-    res.render("users/edit", { data: {}, user: user[0] });
+    res.render("users/edit", {
+      data: { user: req.session.user },
+      user: user[0],
+    });
   } else {
-    res.render("./error/404", { data: { message: "User Not Found" } });
+    res.render("./error/404", {
+      data: { message: "User Not Found", user: req.session.user },
+    });
   }
 };
 
@@ -91,6 +105,8 @@ exports.editUser = async (req, res) => {
   if (user.id) {
     res.redirect(`/users/${req.params.id}`);
   } else {
-    res.render("./error/404", { data: { message: "User Not Found" } });
+    res.render("./error/404", {
+      data: { message: "User Not Found", user: req.session.user },
+    });
   }
 };

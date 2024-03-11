@@ -17,17 +17,17 @@ const {
 
 exports.allGuidesPage = async (req, res) => {
   const guides = await getAllGuides();
-  res.render("guides/list", { data: {user:req.session.user}, guides });
+  res.render("guides/list", { data: { user: req.session.user }, guides });
 };
 
 exports.createGuidePage = (req, res) => {
-  const data = {user:req.session.user};
+  const data = { user: req.session.user };
   res.render("guides/create", { data, guide: {} });
 };
 
 exports.createGude = async (req, res) => {
   const { title, content } = req.body;
-  const data = {user:req.session.user};
+  const data = { user: req.session.user };
   try {
     const newGuide = await addGuide(title, content);
     res.redirect(String(newGuide.id));
@@ -40,9 +40,14 @@ exports.createGude = async (req, res) => {
 exports.deleteGuidePage = async (req, res) => {
   const guide = await getGuideById(req.params.id);
   if (guide.length !== 0) {
-    res.render("guides/delete", { data: {user:req.session.user}, guide: guide[0] });
+    res.render("guides/delete", {
+      data: { user: req.session.user },
+      guide: guide[0],
+    });
   } else {
-    res.render("./error/404", { data: { message: "Guide Not Found", user:req.session.user } });
+    res.render("./error/404", {
+      data: { message: "Guide Not Found", user: req.session.user },
+    });
   }
 };
 
@@ -52,25 +57,37 @@ exports.deleteGude = async (req, res) => {
     res.redirect("/guides");
     // res.render("guides/delete", { data: {}, guide: guide[0] });
   } else {
-    res.render("./error/404", { data: { message: "Guide Not Found", user:req.session.user } });
+    res.render("./error/404", {
+      data: { message: "Guide Not Found", user: req.session.user },
+    });
   }
 };
 
 exports.getGuidePage = async (req, res) => {
   const guide = await getGuideById(req.params.id);
   if (guide.length !== 0) {
-    res.render("guides/details", { data: {user:req.session.user}, guide: guide[0] });
+    res.render("guides/details", {
+      data: { user: req.session.user },
+      guide: guide[0],
+    });
   } else {
-    res.render("./error/404", { data: { message: "Guide Not Found", user:req.session.user } });
+    res.render("./error/404", {
+      data: { message: "Guide Not Found", user: req.session.user },
+    });
   }
 };
 
 exports.editGuidePage = async (req, res) => {
   const guide = await getGuideById(req.params.id);
   if (guide.length !== 0) {
-    res.render("guides/edit", { data: {user:req.session.user}, guide: guide[0] });
+    res.render("guides/edit", {
+      data: { user: req.session.user },
+      guide: guide[0],
+    });
   } else {
-    res.render("./error/404", { data: { message: "Guide Not Found", user:req.session.user } });
+    res.render("./error/404", {
+      data: { message: "Guide Not Found", user: req.session.user },
+    });
   }
 };
 
@@ -80,6 +97,8 @@ exports.editGuide = async (req, res) => {
   if (guide.id) {
     res.redirect(`/guides/${req.params.id}`);
   } else {
-    res.render("./error/404", { data: { message: "Guide Not Found", user:req.session.user } });
+    res.render("./error/404", {
+      data: { message: "Guide Not Found", user: req.session.user },
+    });
   }
 };

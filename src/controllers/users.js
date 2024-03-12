@@ -1,4 +1,4 @@
-const router = require("express").Router();
+const express = require("express");
 const {
   addUser,
   getAllUsers,
@@ -6,6 +6,8 @@ const {
   updateUserById,
   deleteUserById,
 } = require("../models/user");
+
+const passwordChecker = require("../utils/password-checher");
 
 /**
  * @param {express.Request} req
@@ -26,6 +28,14 @@ exports.createUserPage = (req, res) => {
 exports.createUser = async (req, res) => {
   const { firstName, lastName, age, username, role, password } = req.body;
   const data = { user: req.session.user };
+  if (passwordChecker(password)) {
+    return res.render("./auth/login", {
+      data: {
+        message:
+          "Weak password</br>password must contains 6 characters and numbers",
+      },
+    });
+  }
   try {
     const newUser = await addUser(
       firstName,
@@ -71,7 +81,10 @@ exports.deleteUser = async (req, res) => {
 exports.userPage = async (req, res) => {
   const user = await getUserById(req.params.id);
   if (user.length !== 0) {
-    res.render("users/details", { data: {}, user: user[0] });
+    res.render("users/details", {
+      data: { user: req.session.user },
+      user: user[0],
+    });
   } else {
     res.render("./error/404", {
       data: { message: "User Not Found", user: req.session.user },

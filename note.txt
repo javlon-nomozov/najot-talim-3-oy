@@ -1,0 +1,38 @@
+$ node src/test.js 
+constructor
+Server is running on port 3000
+get
+read
+data {}
+{
+  sess: Session {
+    cookie: { path: '/', _expires: null, originalMaxAge: null, httpOnly: true }
+  }
+}
+set
+read
+data {}
+{ sessions: {} }
+write
+get
+read
+data {
+  '4jaTUGsXdYuPbTl_mNmom2vP7HQ3GqeW': {
+    cookie: { originalMaxAge: null, expires: null, httpOnly: true, path: '/' },
+    views: 1
+  }
+}
+createSession
+read
+{ sess: undefined }
+TypeError: Cannot read properties of undefined (reading 'reload')
+    at wrapmethods (D:\Documents\GitHub\NT-4\node_modules\express-session\index.js:404:26)
+    at inflate (D:\Documents\GitHub\NT-4\node_modules\express-session\index.js:388:7)
+    at D:\Documents\GitHub\NT-4\node_modules\express-session\index.js:508:11
+    at CustomSessionStore.get (D:\Documents\GitHub\NT-4\src\utils\CustomSessionStore.js:70:7)
+data {
+  '4jaTUGsXdYuPbTl_mNmom2vP7HQ3GqeW': {
+    cookie: { originalMaxAge: null, expires: null, httpOnly: true, path: '/' },
+    views: 1
+  }
+}

@@ -1,3 +1,4 @@
+const express = require("express");
 const {
   getAllTodoes,
   addTodo,
@@ -22,13 +23,20 @@ exports.allTodoesPage = async (req, res) => {
   } else {
     todoes = await getAllTodoes();
   }
-  res.render("todoes/list", { data: {user:req.session.user}, todoes });
+  res.render(
+    "todoes/list",
+    { data: { user: req.session.user }, todoes },
+    (error) => {
+      res.send("custom error");
+      console.log({ error });
+    }
+  );
 };
 
 exports.createTodoPage = async (req, res) => {
   const users = await getAllUsers();
   const guides = await getAllGuides();
-  const data = {user:req.session.user};
+  const data = { user: req.session.user };
   res.render("todoes/create", { data, todo: req.body, users, guides });
 };
 
@@ -57,7 +65,10 @@ exports.createTodo = async (req, res) => {
 exports.deleteTodoPage = async (req, res) => {
   const todo = await getTodoById(req.params.id);
   if (todo.length !== 0) {
-    res.render("todoes/delete", { data: {user:req.session.user}, todo: todo[0] });
+    res.render("todoes/delete", {
+      data: { user: req.session.user },
+      todo: todo[0],
+    });
   } else {
     res.render("./error/404", { data: { message: "Todo Not Found" } });
   }

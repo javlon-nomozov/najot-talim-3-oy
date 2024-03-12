@@ -13,19 +13,9 @@ module.exports = function checkPasswordStrength(password) {
       score++;
     }
   }
-
-  switch (score) {
-    case 5:
-      return "Very Strong";
-    case 4:
-      return "Strong";
-    case 3:
-      return "Moderate";
-    case 2:
-      return "Weak";
-    case 1:
-      return "Very Weak";
-    default:
-      return "Invalid Password";
+  if (score > 2) {
+    return true;
+  } else {
+    return false;
   }
 };

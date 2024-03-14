@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/assets/form.css" />
   </head>
   <body>
-    <%- include('../partials/navbar.ejs') %>
+    <%- include('../../partials/navbar.ejs') %>
     <div class="breadcrumb">
       <span class="breadcrumb-item"><a href="/">Home</a></span
       >/
@@ -24,6 +24,9 @@
       <main>
         <section class="item-list">
           <h2>All Guides</h2>
+          <div class="item-card">
+            <a href="/guides/create" class="btn">Add Guide</a>
+          </div>
           <div class="item-cards">
             <% guides.forEach(guide => { %>
             <div class="item-card">
@@ -35,6 +38,12 @@
                 </p>
               </a>
               <br />
+              <a class="btn edit" href="/guides/<%= guide.id %>/edit">Edit</a>
+              <br />
+              <br />
+              <a class="btn delete" href="/guides/<%= guide.id %>/delete">
+                Delete
+              </a>
             </div>
 
             <% }) %>

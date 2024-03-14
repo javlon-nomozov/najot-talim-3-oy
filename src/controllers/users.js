@@ -16,12 +16,12 @@ const { deleteTodoByUserId } = require("../models/todoes");
 
 exports.allUsersPage = async (req, res) => {
   const users = await getAllUsers();
-  res.render("users/list", { data: {}, users });
+  res.render("users/admin/list", { data: {}, users });
 };
 
 exports.createUserPage = (req, res) => {
   const data = {};
-  res.render("users/create", { data, user: {} });
+  res.render("users/admin/create", { data, user: {} });
 };
 
 exports.createUser = async (req, res) => {
@@ -31,7 +31,7 @@ exports.createUser = async (req, res) => {
     if (!checkPasswordStrength(password)) {
       data.message =
         "Weak password</br>password must conmtains min 6 characters: letters, numbers, symbols";
-      return res.render("users/create", { data, user: req.body });
+      return res.render("users/admin/create", { data, user: req.body });
     }
     const newUser = await addUser(
       firstName,
@@ -44,14 +44,14 @@ exports.createUser = async (req, res) => {
     res.redirect(String(newUser.id));
   } catch (error) {
     data.message = error;
-    res.render("users/create", { data, user: req.body });
+    res.render("users/admin/create", { data, user: req.body });
   }
 };
 
 exports.deleteUserPage = async (req, res) => {
   const user = await getUserById(req.params.id);
   if (user.length !== 0) {
-    res.render("users/delete", {
+    res.render("users/admin/delete", {
       data: {},
       user: user[0],
     });
@@ -67,7 +67,7 @@ exports.deleteUser = async (req, res) => {
   if (user.id !== 0) {
     await deleteTodoByUserId(req.body.id);
     res.redirect("/users");
-    // res.render("users/delete", { data: {}, user: user[0] });
+    // res.render("users/admin/delete", { data: {}, user: user[0] });
   } else {
     res.render("./error/404", {
       data: { message: "User Not Found" },
@@ -76,8 +76,16 @@ exports.deleteUser = async (req, res) => {
 };
 
 exports.userPage = async (req, res) => {
-  const user = await getUserById(req.params.id);
-  if (user.length !== 0) {
+  if (req.user.role === 'admin') {
+    const user = await getUserById(req.params.id);
+    if (user.length !== 0) {
+      return res.render("users/admin/details", { data: {}, user: user[0] });
+    }else {
+      res.render("./error/404", {
+        data: { message: "User Not Found" },
+      });}
+    } else if (params.id===req.user.id){
+    const user = await getUserById(req.params.id);
     res.render("users/details", { data: {}, user: user[0] });
   } else {
     res.render("./error/404", {
@@ -89,7 +97,7 @@ exports.userPage = async (req, res) => {
 exports.editUserPage = async (req, res) => {
   const user = await getUserById(req.params.id);
   if (user.length !== 0) {
-    res.render("users/edit", {
+    res.render("users/admin/edit", {
       data: {},
       user: user[0],
     });

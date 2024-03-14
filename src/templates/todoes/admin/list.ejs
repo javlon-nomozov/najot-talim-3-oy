@@ -3,16 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create guide</title>
+    <title>Create todo</title>
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="stylesheet" href="/assets/form.css" />
   </head>
   <body>
-    <%- include('../partials/navbar.ejs') %>
+    <%- include('../../partials/navbar.ejs') %>
     <div class="breadcrumb">
-      <span class="breadcrumb-item"><a href="/">Home</a></span
-      >/
-      <span class="breadcrumb-item">Guides</span>
+      <span class="breadcrumb-item"><a href="/">Home</a></span>/
+      <span class="breadcrumb-item">Todoes</span>
     </div>
     <div class="container">
       <% if (data.message) { %>
@@ -23,16 +22,16 @@
       <% } %>
       <main>
         <section class="item-list">
-          <h2>All Guides</h2>
+          <h2>All Todoes</h2>
+          <div class="item-card">
+            <a href="/todoes/create" class="btn">Add Todo</a>
+          </div>
           <div class="item-cards">
-            <% guides.forEach(guide => { %>
+            <% todoes.forEach(todo => { %>
             <div class="item-card">
-              <a href="/guides/<%= guide.id %>">
-                <h3><%= guide.title %></h3>
-                <p>
-                  <%- guide.content.length > 100 ?
-                  guide.content.slice(0,60)+'.....': guide.content %>
-                </p>
+              <a href="/todoes/<%= todo.id %>">
+                <h3><%= todo.guide.title %></h3>
+                <h3><%= `${todo.user.firstName} ${todo.user.lastName}` %> ga</h3>
               </a>
               <br />
             </div>

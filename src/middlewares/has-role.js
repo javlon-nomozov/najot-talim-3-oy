@@ -7,9 +7,9 @@ module.exports = function (...allowedRoles) {
    * @param {express.NextFunction} next
    */
   return (req, res, next) => {
-    if (allowedRoles.includes(req.session.user)) {
+    if (allowedRoles.includes(req.session.user.role)) {
       return next();
     }
-    res.send('Is not allowed go back to <a href="/">hamepage</a>');
+    res.status(403).send('Is not allowed go back to <a href="/">hamepage</a>');
   };
 };

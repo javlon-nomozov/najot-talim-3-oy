@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/assets/form.css" />
   </head>
   <body>
-    <%- include('../partials/navbar.ejs') %>
+    <%- include('../../partials/navbar.ejs') %>
     <div class="breadcrumb">
       <span class="breadcrumb-item"><a href="/">Home</a></span
       >/
@@ -39,13 +39,16 @@
               </a>
               <br />
               <a class="btn edit" href="/users/<%= user.id %>/edit">Edit</a>
+              <% if (currentUser.id === user.id) { %>
+              <button class="btn delete" disabled>You cannot delete yourself</h3>
+              <% } else{ %>
               <br />
               <br />
               <a class="btn delete" href="/users/<%= user.id %>/delete">
                 Delete
               </a>
-            </div>
-
+              <% } %>
+              </div>
             <% }) %>
           </div>
         </section>

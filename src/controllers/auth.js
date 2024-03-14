@@ -12,11 +12,7 @@ module.exports.loginPage = async (req, res) => {
   if (req.session.user) {
     return res.redirect("/");
   }
-  await res.render("./auth/login", { data: {} }, (err) => {
-    if (err) {
-      res.send("salom");
-    }
-  });
+  await res.render("./auth/login", { data: {} });
 };
 
 module.exports.login = async (req, res) => {

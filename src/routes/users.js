@@ -9,25 +9,15 @@ const {
   editUser,
   userPage,
 } = require("../controllers/users");
+const accessChecherMid = require("../middlewares/has-role");
 
-// all users
-router.get("/", allUsersPage);
-
-router.get("/create", createUserPage);
-
-router.post("/create", createUser);
-
-router.get("/:id/delete", deleteUserPage);
-
-router.post("/delete", deleteUser);
-
-// get user by id
+router.get("/", accessChecherMid("admin"), allUsersPage);
+router.get("/create", accessChecherMid("admin"), createUserPage);
+router.post("/create", accessChecherMid("admin"), createUser);
+router.get("/:id/delete", accessChecherMid("admin"), deleteUserPage);
+router.post("/delete", accessChecherMid("admin"), deleteUser);
+router.get("/:id/edit", accessChecherMid("admin"), editUserPage);
+router.post("/:id/edit", accessChecherMid("admin"), editUser);
 router.get("/:id", userPage);
-
-// get edit by id
-router.get("/:id/edit", editUserPage);
-
-// post edit by id
-router.post("/:id/edit", editUser);
 
 module.exports = router;

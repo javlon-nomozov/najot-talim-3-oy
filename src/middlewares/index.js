@@ -16,7 +16,8 @@ router.use(
 );
 // set current user
 router.use((req, res, next) => {
-  res.locals.currentUser = req.session.user;
+  req.user = req.session.user
+  res.locals.currentUser = req.user;
   next();
 });
 // use body parser

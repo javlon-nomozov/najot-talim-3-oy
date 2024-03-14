@@ -23,10 +23,8 @@
       <% } %>
       <main>
         <section class="item-list">
-          <h2>All Todoes</h2>
-          <div class="item-card">
-            <a href="/todoes/create" class="btn">Add Todo</a>
-          </div>
+          <h2>Your notifications</h2>
+          <br>
           <div class="item-cards">
             <% todoes.forEach(todo => { %>
             <div class="item-card">
@@ -35,9 +33,6 @@
                 <h3><%= `${todo.user.firstName} ${todo.user.lastName}` %> ga</h3>
               </a>
               <br />
-              <a class="btn delete" href="/todoes/<%= todo.id %>/delete">
-                Delete
-              </a>
             </div>
 
             <% }) %>

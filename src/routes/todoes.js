@@ -1,4 +1,5 @@
 const router = require("express").Router();
+const accessChecherMid = require("../middlewares/has-role");
 
 const {
   allTodoesPage,
@@ -6,21 +7,25 @@ const {
   createTodo,
   deleteTodoPage,
   deleteTodo,
-  getUserPage,
+  getTodoPage,
+  markAsRead,
 } = require("../controllers/todoes");
 
 // all todoes
 router.get("/", allTodoesPage);
 
-router.get("/create", createTodoPage);
+router.get("/create", accessChecherMid("admin"), createTodoPage);
 
-router.post("/create", createTodo);
+router.post("/create", accessChecherMid("admin"), createTodo);
 
-router.get("/:id/delete", deleteTodoPage);
+// delete todo page
+router.get("/:id/delete", accessChecherMid("admin"), deleteTodoPage);
 
-router.post("/delete", deleteTodo);
+// delete todo
+router.post("/delete", accessChecherMid("admin"), deleteTodo);
 
 // get todo by id
-router.get("/:id", getUserPage);
+router.get("/:id", getTodoPage);
+router.post("/:id/read", markAsRead);
 
 module.exports = router;

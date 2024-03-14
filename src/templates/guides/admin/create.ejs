@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/assets/form.css" />
   </head>
   <body>
-    <%- include('../partials/navbar.ejs') %>
+    <%- include('../../partials/navbar.ejs') %>
     <div class="breadcrumb">
       <span class="breadcrumb-item"><a href="/">Home</a></span
       >/ <span class="breadcrumb-item"><a href="/guides">Guides</a></span
@@ -27,7 +27,7 @@
 
       <div class="form-container">
         <h2>Create Guide</h2>
-        <form action="/guides/<%= guide.id %>/edit" method="POST">
+        <form action="/guides/create" method="POST">
           <div class="form-group">
             <label for="title">Title:</label>
             <input
@@ -39,15 +39,22 @@
             />
           </div>
           <div class="form-group">
-            <label for="content">Last Name:</label>
-            <textarea type="text" id="content" name="content" required>
-<%- guide.content %></textarea
-            >
+            <label for="content">Content:</label>
+            <textarea type="text" id="content" name="content" required><%- guide.content %></textarea>
           </div>
 
           <div class="form-group">
-            <input type="submit" value="Edit" />
+            <label for="send_others">Send to Others</label>
+            <select name="send_others" id="send_others">
+              <option value="false">No</option>
+              <option value="true">Yes</option>
+            </select>
           </div>
+
+          <div class="form-group">
+            <input type="submit" value="Create" />
+          </div>
+
         </form>
       </div>
     </div>

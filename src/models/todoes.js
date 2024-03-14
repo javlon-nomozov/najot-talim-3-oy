@@ -118,8 +118,9 @@ function updateTodoById(id, { user_id, guide_id, compleated }) {
     todoes = todoes.map((todo) => {
       if (todo.id === id) {
         todoExist = todo;
-        todo.title = title || todo.title;
-        todo.content = content || todo.content;
+        todo.user_id = user_id || todo.user_id;
+        todo.guide_id = guide_id || todo.guide_id;
+        todo.compleated = compleated || todo.compleated;
       }
       return todo;
     });

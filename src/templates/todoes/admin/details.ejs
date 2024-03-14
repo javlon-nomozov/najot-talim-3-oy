@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="/assets/form.css" />
   </head>
   <body>
-    <%- include('../partials/navbar.ejs') %>
+    <%- include('../../partials/navbar.ejs') %>
     <div class="breadcrumb">
       <span class="breadcrumb-item"><a href="/">Home</a></span
       >/ <span class="breadcrumb-item"><a href="/todoes">Todoes</a></span
@@ -26,18 +26,34 @@
       <main>
         <section class="todo-detail">
           <div class="item-info">
-            <h2><%= todo.guide.title %></h2>
+            <h2>Todo Information</h2>
             <div>
-              <p id="last-name"><%= todo.guide.content %></p>
+              <strong>For Who:</strong>
+              <span id="first-name"
+                ><%= `${todo.user.firstName} ${todo.user.lastName}` %></span
+              >
+            </div>
+            <div>
+              <strong>Todo:</strong>
+              <span id="last-name"><%= todo.guide.title %></span>
             </div>
             <br />
+            <% if (currentUser.id===todo.user_id) { %>
             <form action="/todoes/<%= todo.id %>/read" method="post">
               <% if (todo.compleated) { %>
-              <button class="btn delete" type="submit" disabled>Already read</button>
+              <button class="btn delete" type="submit" disabled>
+                Already read
+              </button>
               <% } else { %>
               <button class="btn" type="submit">Mark as read</button>
               <% } %>
             </form>
+            <% } else{ %>
+            <h2>Status:<%= todo.compleated ? "✅" : "❌" %></h2>
+            <% } %>
+            <a class="btn delete" href="/todoes/<%= todo.id %>/delete">
+              Delete
+            </a>
           </div>
         </section>
       </main>

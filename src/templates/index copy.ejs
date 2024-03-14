@@ -19,19 +19,35 @@
       <% } %>
       <div class="item-cards">
         <% if (currentUser) { %>
-        <br />
+          <br />
+        <% if (currentUser.role === 'admin') { %>
+        <div class="item-card">
+          <a href="/users">
+            <h2>Users</h2>
+          </a>
+        
+          <br />
+          <a href="/users/create" class="btn">Create User</a>
+        </div>
+        <% } %>
         <div class="item-card">
           <a href="/guides">
             <h2>Guides</h2>
           </a>
           <br />
+          <% if (currentUser.role === 'admin') { %>
+            <a href="/guides/create" class="btn">Create Guide</a>
+          <% } %>
         </div>
         <div class="item-card">
           <a href="/todoes">
             <h2>Todoes</h2>
           </a>
           <br />
-        </div>
+          <% if (currentUser.role === 'admin') { %>
+            <a href="/todoes/create" class="btn">Create Todoes</a>
+          <% } %>
+          </div>
         <div class="item-card">
           <a href="/users/<%= currentUser.id %>">
             <h2>My Proile</h2>

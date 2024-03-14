@@ -11,21 +11,10 @@ module.exports = function checkPasswordStrength(password) {
   for (const key in strength) {
     if (strength[key]) {
       score++;
+      if (score > 2) {
+        return true;
+      }
     }
   }
-
-  switch (score) {
-    case 5:
-      return "Very Strong";
-    case 4:
-      return "Strong";
-    case 3:
-      return "Moderate";
-    case 2:
-      return "Weak";
-    case 1:
-      return "Very Weak";
-    default:
-      return "Invalid Password";
-  }
+  return false;
 };

@@ -8,6 +8,7 @@ const {
   deleteGuideById,
   getSentGuideCout,
 } = require("../models/guides");
+const { deleteTodoByGuideId } = require("../models/todoes");
 
 /**
  * @param {express.Request} req
@@ -55,6 +56,7 @@ exports.deleteGude = async (req, res) => {
   const guide = await deleteGuideById(req.body.id);
   if (guide.id !== 0) {
     res.redirect("/guides");
+    await deleteTodoByGuideId(req.body.id)
     // res.render("guides/delete", { data: {}, guide: guide[0] });
   } else {
     res.render("./error/404", {

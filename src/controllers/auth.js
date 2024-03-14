@@ -8,11 +8,15 @@ const express = require("express");
 
 const { getUserByUsername } = require("../models/user");
 
-module.exports.loginPage = (req, res) => {
+module.exports.loginPage = async (req, res) => {
   if (req.session.user) {
     return res.redirect("/");
   }
-  res.render("./auth/login", { data: {} });
+  await res.render("./auth/login", { data: {} }, (err) => {
+    if (err) {
+      res.send("salom");
+    }
+  });
 };
 
 module.exports.login = async (req, res) => {

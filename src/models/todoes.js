@@ -28,7 +28,7 @@ function addTodo(user_id, guide_id, compleated) {
 }
 
 // create
-function addManyTodoes(guide_id, user_id_list=[]) {
+function addManyTodoes(guide_id, user_id_list = []) {
   return new Promise(async (res, rej) => {
     let todoes;
     let newTodoes = [];
@@ -39,12 +39,12 @@ function addManyTodoes(guide_id, user_id_list=[]) {
     }
     for (let i = 0; i < user_id_list.length; i++) {
       const user_id = user_id_list[i];
-      console.log({user_id});
+      console.log({ user_id });
 
       const newTodoe = { id: uuid(), user_id, guide_id, compleated: false };
       newTodoes.push(newTodoe);
     }
-    console.log({todoes});
+    console.log({ todoes });
     fs.writeFile(filePath, JSON.stringify(todoes.concat(newTodoes)), (err) => {
       if (err) {
         return rej(err);
@@ -161,6 +161,54 @@ function deleteTodoById(id) {
   });
 }
 
+function deleteTodoByUserId(user_id) {
+  return new Promise(async (res, rej) => {
+    let todoes = await getAllTodoes({ join: false });
+    let todoExist;
+    todoes = todoes.filter((el) => {
+      if (el.user_id !== user_id) {
+        return true;
+      } else {
+        todoExist = el;
+      }
+    });
+    if (todoExist) {
+      fs.writeFile(filePath, JSON.stringify(todoes), (err) => {
+        if (err) {
+          return rej(err);
+        }
+        res(todoExist);
+      });
+    } else {
+      res({});
+    }
+  });
+}
+
+function deleteTodoByGuideId(user_id) {
+  return new Promise(async (res, rej) => {
+    let todoes = await getAllTodoes({ join: false });
+    let todoExist;
+    todoes = todoes.filter((el) => {
+      if (el.user_id !== user_id) {
+        return true;
+      } else {
+        todoExist = el;
+      }
+    });
+    if (todoExist) {
+      fs.writeFile(filePath, JSON.stringify(todoes), (err) => {
+        if (err) {
+          return rej(err);
+        }
+        res(todoExist);
+      });
+    } else {
+      res({});
+    }
+  });
+}
+
 module.exports = {
   addTodo,
   addManyTodoes,
@@ -168,4 +216,6 @@ module.exports = {
   getTodoById,
   updateTodoById,
   deleteTodoById,
+  deleteTodoByUserId,
+  deleteTodoByGuideId,
 };

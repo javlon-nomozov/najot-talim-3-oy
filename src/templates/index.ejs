@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create User</title>
+    <title>Document</title>
     <link rel="stylesheet" href="/assets/styles.css" />
     <link rel="stylesheet" href="/assets/form.css" />
   </head>
@@ -40,9 +40,9 @@
           <br />
           <a href="/todoes/create" class="btn">Create Todoes</a>
         </div>
-        <% if (data.user) { %>
+        <% if (currentUser) { %>
         <div class="item-card">
-          <a href="/users/<%= data.user.id %>">
+          <a href="/users/<%= currentUser.id %>">
             <h2>My Proile</h2>
           </a>
           <br />

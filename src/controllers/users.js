@@ -1,4 +1,4 @@
-const router = require("express").Router();
+const checkPasswordStrength = require("../utils/password-checher");
 const {
   addUser,
   getAllUsers,
@@ -6,6 +6,7 @@ const {
   updateUserById,
   deleteUserById,
 } = require("../models/user");
+const { deleteTodoByUserId } = require("../models/todoes");
 
 /**
  * @param {express.Request} req
@@ -15,7 +16,7 @@ const {
 
 exports.allUsersPage = async (req, res) => {
   const users = await getAllUsers();
-  res.render("users/list", { data: { user: req.session.user }, users });
+  res.render("users/list", { data: {}, users });
 };
 
 exports.createUserPage = (req, res) => {
@@ -25,8 +26,13 @@ exports.createUserPage = (req, res) => {
 
 exports.createUser = async (req, res) => {
   const { firstName, lastName, age, username, role, password } = req.body;
-  const data = { user: req.session.user };
+  const data = {};
   try {
+    if (!checkPasswordStrength(password)) {
+      data.message =
+        "Weak password</br>password must conmtains min 6 characters: letters, numbers, symbols";
+      return res.render("users/create", { data, user: req.body });
+    }
     const newUser = await addUser(
       firstName,
       lastName,
@@ -46,12 +52,12 @@ exports.deleteUserPage = async (req, res) => {
   const user = await getUserById(req.params.id);
   if (user.length !== 0) {
     res.render("users/delete", {
-      data: { user: req.session.user },
+      data: {},
       user: user[0],
     });
   } else {
     res.render("./error/404", {
-      data: { message: "User Not Found", user: req.session.user },
+      data: { message: "User Not Found" },
     });
   }
 };
@@ -59,11 +65,12 @@ exports.deleteUserPage = async (req, res) => {
 exports.deleteUser = async (req, res) => {
   const user = await deleteUserById(req.body.id);
   if (user.id !== 0) {
+    await deleteTodoByUserId(req.body.id);
     res.redirect("/users");
     // res.render("users/delete", { data: {}, user: user[0] });
   } else {
     res.render("./error/404", {
-      data: { message: "User Not Found", user: req.session.user },
+      data: { message: "User Not Found" },
     });
   }
 };
@@ -74,7 +81,7 @@ exports.userPage = async (req, res) => {
     res.render("users/details", { data: {}, user: user[0] });
   } else {
     res.render("./error/404", {
-      data: { message: "User Not Found", user: req.session.user },
+      data: { message: "User Not Found" },
     });
   }
 };
@@ -83,12 +90,12 @@ exports.editUserPage = async (req, res) => {
   const user = await getUserById(req.params.id);
   if (user.length !== 0) {
     res.render("users/edit", {
-      data: { user: req.session.user },
+      data: {},
       user: user[0],
     });
   } else {
     res.render("./error/404", {
-      data: { message: "User Not Found", user: req.session.user },
+      data: { message: "User Not Found" },
     });
   }
 };
@@ -106,7 +113,7 @@ exports.editUser = async (req, res) => {
     res.redirect(`/users/${req.params.id}`);
   } else {
     res.render("./error/404", {
-      data: { message: "User Not Found", user: req.session.user },
+      data: { message: "User Not Found" },
     });
   }
 };

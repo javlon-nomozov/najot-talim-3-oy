@@ -22,7 +22,7 @@ router.get("/create", accessChecherMid("admin"), createGuidePage);
 router.post(
   "/create",
   accessChecherMid("admin"),
-  validate(createGuideSchem,'/guides/create'),
+  validate(createGuideSchem, "/guides/create"),
   createGude
 );
 
@@ -37,7 +37,7 @@ router.get("/:id/edit", accessChecherMid("admin"), editGuidePage);
 router.post(
   "/:id/edit",
   accessChecherMid("admin"),
-  validate(createGuideSchem,'/guides'),
+  validate(createGuideSchem, "/guides"),
   editGuide
 );
 

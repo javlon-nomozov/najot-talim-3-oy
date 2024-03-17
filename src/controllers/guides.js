@@ -30,7 +30,8 @@ exports.allGuidesPage = async (req, res) => {
  * @param {express.NextFunction} next
  */
 exports.createGuidePage = (req, res) => {
-  res.render("guides/admin/create", { guide: {} });
+  const alerts = req.flash.get("alerts");
+  res.render("guides/admin/create", { guide: {}, alerts });
 };
 
 /**
@@ -73,7 +74,7 @@ exports.deleteGuidePage = async (req, res) => {
     });
   } else {
     res.render("./error/404", {
-      alerts: [{ message: "Guide Not Found", type:'warning' }],
+      data: { message: "Guide Not Found" },
     });
   }
 };
@@ -90,7 +91,7 @@ exports.deleteGude = async (req, res) => {
     await deleteTodoByGuideId(req.body.id);
   } else {
     res.render("./error/404", {
-      alerts: [{ message: "Guide Not Found", type:'warning' }],
+      data: { message: "Guide Not Found" },
     });
   }
 };
@@ -101,19 +102,22 @@ exports.deleteGude = async (req, res) => {
  * @param {express.NextFunction} next
  */
 exports.getGuidePage = async (req, res) => {
+  const alerts = req.flash.get("alerts");
   const guide = await getGuideById(req.params.id);
   if (guide.length !== 0) {
     if (req.user.role === "admin") {
       return res.render("guides/admin/details", {
         guide: guide[0],
+        alerts,
       });
     }
     res.render("guides/details", {
       guide: guide[0],
+      alerts,
     });
   } else {
     res.render("./error/404", {
-      alerts: [{ message: "Guide Not Found", type:'warning' }],
+      data: { message: "Guide Not Found" },
     });
   }
 };
@@ -131,7 +135,7 @@ exports.editGuidePage = async (req, res) => {
     });
   } else {
     res.render("./error/404", {
-      alerts: [{ message: "Guide Not Found", type:'warning' }],
+      data: { message: "Guide Not Found" },
     });
   }
 };
@@ -156,7 +160,7 @@ exports.editGuide = async (req, res) => {
     // res.redirect(`/guides/${req.params.id}`);
   } else {
     res.render("./error/404", {
-      alerts: [{ message: "Guide Not Found", type:'warning' }],
+      data: { message: "Guide Not Found" },
     });
   }
 };

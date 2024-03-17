@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/javlon-nomozov/najot-talim-4-oy#readme",
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.9",
     "express": "^4.18.2",

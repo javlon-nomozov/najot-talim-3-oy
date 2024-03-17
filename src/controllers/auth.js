@@ -7,6 +7,7 @@ const express = require("express");
  */
 
 const { getUserByUsername } = require("../models/user");
+const { comparePasswords } = require("../utils/bcrypt-utilities");
 
 module.exports.loginPage = async (req, res) => {
   if (req.session.user) {
@@ -22,9 +23,17 @@ module.exports.login = async (req, res) => {
   const data = {};
   const { username, password } = req.body;
   const [foundUser] = await getUserByUsername(username);
-  if (!foundUser || foundUser.password !== password) {
-    req.flash.set('alerts',{ message: "Incorrect password or username", type: "danger" })
-    return res.redirect('/auth/login')
+  console.log(
+    password,
+    foundUser.password,
+    await comparePasswords(password, foundUser.password)
+  );
+  if (!foundUser || !(await comparePasswords(password, foundUser.password))) {
+    req.flash.set("alerts", {
+      message: "Incorrect password or username",
+      type: "danger",
+    });
+    return res.redirect("/auth/login");
   }
   req.session.user = foundUser;
   res.redirect(req.session.lastPage || "/");
@@ -32,6 +41,6 @@ module.exports.login = async (req, res) => {
 
 exports.logout = (req, res) => {
   req.session.user = null;
-    req.flash.set('alerts',{ message: "Succesfully log out", type: "warning" })
-    res.redirect("/auth/login");
+  req.flash.set("alerts", { message: "Succesfully log out", type: "warning" });
+  res.redirect("/auth/login");
 };

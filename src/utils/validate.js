@@ -10,7 +10,6 @@ module.exports = function validate(schema, errorPath) {
   return (req, res, next) => {
     const { error, value } = schema.validate(req.body);
     if (error) {
-      console.log(error);
       try {
         error.details.forEach((el) => {
           req.flash.set("alerts", {

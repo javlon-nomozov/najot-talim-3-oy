@@ -15,7 +15,6 @@ module.exports.loginPage = async (req, res) => {
   }
   const alerts = req.flash.get("alerts");
   const data = { alerts, data: {}, layout: "layouts/empty-layout" };
-  console.log(data);
   await res.render("./auth/login", data);
 };
 
@@ -23,11 +22,6 @@ module.exports.login = async (req, res) => {
   const data = {};
   const { username, password } = req.body;
   const [foundUser] = await getUserByUsername(username);
-  console.log(
-    password,
-    foundUser.password,
-    await comparePasswords(password, foundUser.password)
-  );
   if (!foundUser || !(await comparePasswords(password, foundUser.password))) {
     req.flash.set("alerts", {
       message: "Incorrect password or username",

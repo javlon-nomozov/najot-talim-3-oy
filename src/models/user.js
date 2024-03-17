@@ -13,7 +13,6 @@ function getAllTodoes({ join } = { join: true }) {
           return rej(err);
         }
         const parsedData = JSON.parse(data.toString());
-        // console.log({users});
         if (join) {
           const users = {};
           (await getAllUsers()).forEach((user) => (users[user.id] = user));
@@ -100,7 +99,6 @@ function getUserById(id) {
   });
 }
 
-
 function getUserByUsername(username) {
   return new Promise((res, rej) => {
     fs.readFile(filePath, (err, data) => {
@@ -108,7 +106,12 @@ function getUserByUsername(username) {
         err.code = 801;
         return rej(err);
       }
-      res(_.filter(JSON.parse(data.toString()), (user) => user.username === username));
+      res(
+        _.filter(
+          JSON.parse(data.toString()),
+          (user) => user.username === username
+        )
+      );
     });
   });
 }
@@ -168,10 +171,6 @@ function deleteUserById(id) {
     }
   });
 }
-
-// addUser("Javlon", "Nomozov", 21, "great_lvl", 'admin', "123").then((data) =>
-//   console.log(data)
-// );
 
 module.exports = {
   addUser,

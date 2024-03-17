@@ -39,12 +39,10 @@ function addManyTodoes(guide_id, user_id_list = []) {
     }
     for (let i = 0; i < user_id_list.length; i++) {
       const user_id = user_id_list[i];
-      console.log({ user_id });
 
       const newTodoe = { id: uuid(), user_id, guide_id, compleated: false };
       newTodoes.push(newTodoe);
     }
-    console.log({ todoes });
     fs.writeFile(filePath, JSON.stringify(todoes.concat(newTodoes)), (err) => {
       if (err) {
         return rej(err);

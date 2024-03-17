@@ -1,55 +1,10 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Delete page</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f4f4f4;
-        padding: 20px;
-      }
-
-      .btn {
-        display: inline-block;
-        padding: 8px 16px;
-        background-color: #b10505;
-        color: #fff;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-      }
-
-      .btn:hover {
-        background-color: #ff0000;
-      }
-
-      .back-link {
-        margin: auto;
-        text-align: center;
-        margin-top: 20px;
-        color: #0056b3;
-        text-decoration: none;
-      }
-
-      .back-link:hover {
-        text-decoration: underline;
-      }
-
-      h1 {
-        color: #333;
-      }
-    </style>
-  </head>
-  <body>
-    <h1>Delete page</h1>
-    <p>Are you sure want to delete Todo: [ <%= todo.guide.title%> => <%= `${todo.user.firstName} ${todo.user.lastName}` %> ]</p>
-    <form action="/todoes/delete" method="post">
-      <input type="hidden" name="id" value="<%= todo.id %>" />
-      <button type="submit" class="btn">Delete</button>
-    </form>
-    <p><a class="back-link" href="/todoes">back to Todoes page</a></p>
-  </body>
-</html>
+<h1>Delete page</h1>
+<p>
+  Are you sure want to delete Todo: [ <%= todo.guide.title%> => <%=
+  `${todo.user.firstName} ${todo.user.lastName}` %> ]
+</p>
+<form action="/todoes/delete" method="post">
+  <input type="hidden" name="id" value="<%= todo.id %>" />
+  <button type="submit" class="btn">Delete</button>
+</form>
+<p><a class="back-link" href="/todoes">back to Todoes page</a></p>

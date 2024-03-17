@@ -19,9 +19,9 @@ const { getAllUsers } = require("../models/user");
 exports.allGuidesPage = async (req, res) => {
   const guides = await getAllGuides();
   if (res.locals.currentUser.role === "admin") {
-    return res.render("guides/admin/list", { data: {}, guides });
+    return res.render("guides/admin/list", { guides });
   }
-  res.render("guides/list", { data: {}, guides });
+  res.render("guides/list", { guides });
 };
 
 /**
@@ -30,8 +30,7 @@ exports.allGuidesPage = async (req, res) => {
  * @param {express.NextFunction} next
  */
 exports.createGuidePage = (req, res) => {
-  const data = {};
-  res.render("guides/admin/create", { data, guide: {} });
+  res.render("guides/admin/create", { guide: {} });
 };
 
 /**
@@ -41,7 +40,6 @@ exports.createGuidePage = (req, res) => {
  */
 exports.createGude = async (req, res) => {
   const { title, content, send_others: sendOthers } = req.body;
-  const data = {};
   try {
     const newGuide = await addGuide(title, content);
     if ("true" === sendOthers || true === sendOthers) {
@@ -54,8 +52,11 @@ exports.createGude = async (req, res) => {
       return res.redirect(String(newGuide.id));
     }
   } catch (error) {
-    data.message = error;
-    res.render("guides/create", { data, guide: req.body });
+    req.flash.set("alerts", {
+      message: error,
+      type: "danger",
+    });
+    res.redirect("/guides/create");
   }
 };
 
@@ -68,12 +69,11 @@ exports.deleteGuidePage = async (req, res) => {
   const guide = await getGuideById(req.params.id);
   if (guide.length !== 0) {
     res.render("guides/admin/delete", {
-      data: {},
       guide: guide[0],
     });
   } else {
     res.render("./error/404", {
-      data: { message: "Guide Not Found" },
+      alerts: [{ message: "Guide Not Found", type:'warning' }],
     });
   }
 };
@@ -88,10 +88,9 @@ exports.deleteGude = async (req, res) => {
   if (guide.id !== 0) {
     res.redirect("/guides");
     await deleteTodoByGuideId(req.body.id);
-    // res.render("guides/delete", { data: {}, guide: guide[0] });
   } else {
     res.render("./error/404", {
-      data: { message: "Guide Not Found" },
+      alerts: [{ message: "Guide Not Found", type:'warning' }],
     });
   }
 };
@@ -104,19 +103,17 @@ exports.deleteGude = async (req, res) => {
 exports.getGuidePage = async (req, res) => {
   const guide = await getGuideById(req.params.id);
   if (guide.length !== 0) {
-    if (req.user.role === 'admin') {
+    if (req.user.role === "admin") {
       return res.render("guides/admin/details", {
-        data: {},
         guide: guide[0],
       });
     }
     res.render("guides/details", {
-      data: {},
       guide: guide[0],
     });
   } else {
     res.render("./error/404", {
-      data: { message: "Guide Not Found" },
+      alerts: [{ message: "Guide Not Found", type:'warning' }],
     });
   }
 };
@@ -129,13 +126,12 @@ exports.getGuidePage = async (req, res) => {
 exports.editGuidePage = async (req, res) => {
   const guide = await getGuideById(req.params.id);
   if (guide.length !== 0) {
-    res.render("guides/edit", {
-      data: {},
+    res.render("guides/admin/edit", {
       guide: guide[0],
     });
   } else {
     res.render("./error/404", {
-      data: { message: "Guide Not Found" },
+      alerts: [{ message: "Guide Not Found", type:'warning' }],
     });
   }
 };
@@ -160,7 +156,7 @@ exports.editGuide = async (req, res) => {
     // res.redirect(`/guides/${req.params.id}`);
   } else {
     res.render("./error/404", {
-      data: { message: "Guide Not Found" },
+      alerts: [{ message: "Guide Not Found", type:'warning' }],
     });
   }
 };

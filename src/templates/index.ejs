@@ -1,59 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="stylesheet" href="/assets/form.css" />
-  </head>
-  <body>
-    <%- include('./partials/navbar.ejs') %>
-    <div class="container">
-      <% if (data.message) { %>
-      <br />
-      <div class="alert" id="alert">
-        <span> <%- data.message %> </span>
-        <button class="close-btn" onclick="closeAlert()">X</button>
-      </div>
-      <% } %>
-      <div class="item-cards">
-        <% if (currentUser) { %>
-        <br />
-        <div class="item-card">
-          <a href="/guides">
-            <h2>Guides</h2>
-          </a>
-          <br />
-        </div>
-        <div class="item-card">
-          <a href="/todoes">
-            <h2>Todoes</h2>
-          </a>
-          <br />
-        </div>
-        <div class="item-card">
-          <a href="/users/<%= currentUser.id %>">
-            <h2>My Proile</h2>
-          </a>
-          <br />
-          <a href="/auth/logout" class="btn">Logout</a>
-        </div>
-        <% } else { %>
-        <div class="item-card">
-          <a href="/auth/login">
-            <h2>Login</h2>
-          </a>
-        </div>
-        <% } %>
-      </div>
-    </div>
-
-    <script>
-      function closeAlert() {
-        var alert = document.getElementById("alert");
-        alert.style.display = "none";
-      }
-    </script>
-  </body>
-</html>
+<div class="item-cards">
+  <% if (currentUser) { %>
+  <br />
+  <div class="item-card">
+    <a href="/guides">
+      <h2>Guides</h2>
+    </a>
+    <br />
+  </div>
+  <div class="item-card">
+    <a href="/todoes">
+      <h2>Todoes</h2>
+    </a>
+    <br />
+  </div>
+  <div class="item-card">
+    <a href="/users/<%= currentUser.id %>">
+      <h2>My Proile</h2>
+    </a>
+    <br />
+    <a href="/auth/logout" class="btn">Logout</a>
+  </div>
+  <% } else { %>
+  <div class="item-card">
+    <a href="/auth/login">
+      <h2>Login</h2>
+    </a>
+  </div>
+  <% } %>
+</div>

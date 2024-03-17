@@ -7,13 +7,11 @@ const express = require("express");
  */
 
 exports.getHomePage = (req, res) => {
-  // res.send("home");
-  const data = { user: req.session.user };
-  data.message = `Kodlarda ishlatilgan html, css qisimlari chatGPT dan olindi`;
+  const alerts = req.flash.get("alerts");
   if (res.locals.currentUser) {
-    if (res.locals.currentUser.role==='admin') {
-      return res.render("index-admin", { users: [], data });
+    if (res.locals.currentUser.role === "admin") {
+      return res.render("index-admin", { alerts });
     }
   }
-  res.render("index", { users: [], data });
+  res.render("index", { alerts });
 };

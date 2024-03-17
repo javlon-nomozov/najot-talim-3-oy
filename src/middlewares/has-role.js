@@ -10,6 +10,12 @@ module.exports = function (...allowedRoles) {
     if (allowedRoles.includes(req.session.user.role)) {
       return next();
     }
-    res.status(403).send('Is not allowed go back to <a href="/">hamepage</a>');
+    req.flash.set("alerts", {
+      message: `You are not allowed page: ${req.originalUrl}`,
+      type: "danger",
+    });
+
+    // res.status(403).send('Is not allowed go back to <a href="/">hamepage</a>');
+    res.redirect("/");
   };
 };

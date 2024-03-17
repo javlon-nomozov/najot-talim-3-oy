@@ -1,46 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create guide</title>
-    <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="stylesheet" href="/assets/form.css" />
-  </head>
-  <body>
-    <%- include('../partials/navbar.ejs') %>
-    <div class="breadcrumb">
-      <span class="breadcrumb-item"><a href="/">Home</a></span
-      >/
-      <span class="breadcrumb-item">Guides</span>
-    </div>
-    <div class="container">
-      <% if (data.message) { %>
-
-      <div class="alert" id="alert">
-        <span><%- data.message %> </span>
+<main>
+  <section class="item-list">
+    <h2>All Guides</h2>
+    <div class="item-cards">
+      <% guides.forEach(guide => { %>
+      <div class="item-card">
+        <a href="/guides/<%= guide.id %>">
+          <h3><%= guide.title %></h3>
+          <p>
+            <%- guide.content.length > 100 ? guide.content.slice(0,60)+'.....':
+            guide.content %>
+          </p>
+        </a>
+        <br />
       </div>
-      <% } %>
-      <main>
-        <section class="item-list">
-          <h2>All Guides</h2>
-          <div class="item-cards">
-            <% guides.forEach(guide => { %>
-            <div class="item-card">
-              <a href="/guides/<%= guide.id %>">
-                <h3><%= guide.title %></h3>
-                <p>
-                  <%- guide.content.length > 100 ?
-                  guide.content.slice(0,60)+'.....': guide.content %>
-                </p>
-              </a>
-              <br />
-            </div>
 
-            <% }) %>
-          </div>
-        </section>
-      </main>
+      <% }) %>
     </div>
-  </body>
-</html>
+  </section>
+</main>

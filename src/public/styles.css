@@ -208,7 +208,7 @@ a:hover {
   background-color: #c82333;
 }
 
-.delete:disabled{
+.delete:disabled {
   opacity: 0.5;
 }
 
@@ -240,25 +240,55 @@ a:hover {
   margin-bottom: 20px;
   border: 1px solid transparent;
   border-radius: 4px;
-  color: #721c24;
-  background-color: #f8d7da;
-  border-color: #f5c6cb;
+  background-color: #c4c4c4;
+  color: #4d554f;
 }
+
+.alert.success {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.alert.warning {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.alert.danger {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
 .close-btn {
   position: relative;
   top: 0;
   right: 0;
   padding: 5px 10px;
-  background-color: #f8d7da;
-  color: #721c24;
-  border: 1px solid #721c24;
   cursor: pointer;
   border-radius: 4px;
   z-index: 1;
 }
 
+.close-btn.success {
+  background-color: #bfebc9;
+  color: #155724;
+  border: 1px solid #155724;
+}
+
+.close-btn.warning {
+  background-color: #f0e3be;
+  color: #856404;
+  border: 1px solid #856404;
+}
+
+.close-btn.danger {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #721c24;
+}
+
 .close-btn:hover {
-  background-color: #f5c6cb;
+  opacity: .8;
 }
 
 main {

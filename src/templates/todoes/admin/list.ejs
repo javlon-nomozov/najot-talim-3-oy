@@ -1,45 +1,35 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create todo</title>
-    <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="stylesheet" href="/assets/form.css" />
-  </head>
-  <body>
-    <%- include('../../partials/navbar.ejs') %>
-    <div class="breadcrumb">
-      <span class="breadcrumb-item"><a href="/">Home</a></span>/
-      <span class="breadcrumb-item">Todoes</span>
+<main>
+  <section class="item-list">
+    <h2>All Todoes</h2>
+    <div class="item-card">
+      <a href="/todoes/create" class="btn">Add Todo</a>
     </div>
-    <div class="container">
-      <% if (data.message) { %>
-
-      <div class="alert" id="alert">
-        <span><%- data.message %> </span>
+    <div class="item-cards">
+      <% todoes.forEach(todo => { %>
+      <div class="item-card">
+        <a href="/todoes/<%= todo.id %>">
+          <h3><%= todo.guide.title %></h3>
+          <h3><%= `${todo.user.firstName} ${todo.user.lastName}` %> ga</h3>
+        </a>
+        <br />
+        <% if (currentUser.id===todo.user_id) { %>
+        <form action="/todoes/<%= todo.id %>/read" method="post">
+          <% if (todo.compleated) { %>
+          <button class="btn delete" type="submit" disabled>
+            Already read
+          </button>
+          <% } else { %>
+          <p><%= todo.guide.content %></p>
+          <button class="btn" type="submit">Mark as read</button>
+          <% } %>
+        </form>
+        <% } else{ %>
+        <h2>Status:<%= todo.compleated ? "✅" : "❌" %></h2>
+        <% } %>
+        <a class="btn delete" href="/todoes/<%= todo.id %>/delete"> Delete </a>
       </div>
-      <% } %>
-      <main>
-        <section class="item-list">
-          <h2>All Todoes</h2>
-          <div class="item-card">
-            <a href="/todoes/create" class="btn">Add Todo</a>
-          </div>
-          <div class="item-cards">
-            <% todoes.forEach(todo => { %>
-            <div class="item-card">
-              <a href="/todoes/<%= todo.id %>">
-                <h3><%= todo.guide.title %></h3>
-                <h3><%= `${todo.user.firstName} ${todo.user.lastName}` %> ga</h3>
-              </a>
-              <br />
-            </div>
 
-            <% }) %>
-          </div>
-        </section>
-      </main>
+      <% }) %>
     </div>
-  </body>
-</html>
+  </section>
+</main>

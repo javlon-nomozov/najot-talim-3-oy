@@ -26,7 +26,10 @@ exports.allTodoesPage = async (req, res) => {
     });
   } else {
     todoes = await getAllTodoes();
-    res.render("todoes/admin/list", { data: { user: req.session.user }, todoes });
+    res.render("todoes/admin/list", {
+      data: { user: req.session.user },
+      todoes,
+    });
   }
 };
 
@@ -39,7 +42,6 @@ exports.createTodoPage = async (req, res) => {
 
 exports.createTodo = async (req, res) => {
   const { user: user_id, guide: guide_id } = req.body;
-  const data = {};
   const users = await getAllUsers();
   const guides = await getAllGuides();
   if (user_id !== "all") {
@@ -47,8 +49,12 @@ exports.createTodo = async (req, res) => {
       const newTodo = await addTodo(user_id, guide_id);
       res.redirect(String(newTodo.id));
     } catch (error) {
-      data.message = error;
-      res.render("todoes/create", { data, todo: req.body, users, guides });
+      res.render("todoes/create", {
+        alerts: [{ message: "Todo Not Found", type: "warning" }],
+        todo: req.body,
+        users,
+        guides,
+      });
     }
   } else {
     await addManyTodoes(
@@ -67,7 +73,9 @@ exports.deleteTodoPage = async (req, res) => {
       todo: todo[0],
     });
   } else {
-    res.render("./error/404", { data: { message: "Todo Not Found" } });
+    res.render("./error/404", {
+      alerts: [{ message: "Todo Not Found", type: "warning" }],
+    });
   }
 };
 
@@ -77,7 +85,9 @@ exports.deleteTodo = async (req, res) => {
     res.redirect("/todoes");
     // res.render("todoes/delete", { data: {}, todo: todo[0] });
   } else {
-    res.render("./error/404", { data: { message: "Todo Not Found" } });
+    res.render("./error/404", {
+      alerts: [{ message: "Todo Not Found", type: "warning" }],
+    });
   }
 };
 
@@ -87,18 +97,23 @@ exports.getTodoPage = async (req, res) => {
     if (req.user.role === "admin") {
       return res.render("todoes/admin/details", { data: {}, todo: todo[0] });
     }
-    res.render("todoes/details", { data: {}, todo: todo[0] });
+    if (req.user.id === todo[0].user_id) {
+      return res.render("todoes/details", { data: {}, todo: todo[0] });
+    }
+    res.status(403).send("Do not try to get others informations");
   } else {
-    res.render("./error/404", { data: { message: "Todo Not Found" } });
+    res.render("./error/404", {
+      alerts: [{ message: "Todo Not Found", type: "warning" }],
+    });
   }
 };
 
 exports.markAsRead = async (req, res) => {
   const updadetTodo = updateTodoById(req.params.id, { compleated: true });
   if (!updadetTodo) {
-    return res
-      .status(404)
-      .render("./error/404", { data: { message: "Todo Not Found" } });
+    return res.status(404).render("./error/404", {
+      alerts: [{ message: "Todo Not Found", type: "warning" }],
+    });
   }
   res.redirect(`/todoes/${req.params.id}`);
 };

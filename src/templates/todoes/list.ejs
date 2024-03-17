@@ -1,44 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Create todo</title>
-    <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="stylesheet" href="/assets/form.css" />
-  </head>
-  <body>
-    <%- include('../partials/navbar.ejs') %>
-    <div class="breadcrumb">
-      <span class="breadcrumb-item"><a href="/">Home</a></span
-      >/
-      <span class="breadcrumb-item">Todoes</span>
-    </div>
-    <div class="container">
-      <% if (data.message) { %>
-
-      <div class="alert" id="alert">
-        <span><%- data.message %> </span>
+<main>
+  <section class="item-list">
+    <h2>Your notifications</h2>
+    <br />
+    <div class="item-cards">
+      <% todoes.forEach(todo => { %>
+      <div class="item-card">
+        <a href="/todoes/<%= todo.id %>">
+          <h3><%= todo.guide.title %></h3>
+          <h3><%= `${todo.user.firstName} ${todo.user.lastName}` %> ga</h3>
+        </a>
+        <br />
       </div>
-      <% } %>
-      <main>
-        <section class="item-list">
-          <h2>Your notifications</h2>
-          <br>
-          <div class="item-cards">
-            <% todoes.forEach(todo => { %>
-            <div class="item-card">
-              <a href="/todoes/<%= todo.id %>">
-                <h3><%= todo.guide.title %></h3>
-                <h3><%= `${todo.user.firstName} ${todo.user.lastName}` %> ga</h3>
-              </a>
-              <br />
-            </div>
 
-            <% }) %>
-          </div>
-        </section>
-      </main>
+      <% }) %>
     </div>
-  </body>
-</html>
+  </section>
+</main>

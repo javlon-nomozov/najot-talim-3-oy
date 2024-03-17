@@ -14,10 +14,14 @@ router.use(
     // store
   })
 );
-// set current user
+router.use(require("./customFlash"));
 router.use((req, res, next) => {
-  req.user = req.session.user
+  // set current user
+  req.user = req.session.user;
   res.locals.currentUser = req.user;
+  // set default variables to locals
+  res.locals.title = "User Manegment System";
+  res.locals.alerts = undefined;
   next();
 });
 // use body parser

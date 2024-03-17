@@ -26,13 +26,7 @@ exports.createUserPage = (req, res) => {
 
 exports.createUser = async (req, res) => {
   const { firstName, lastName, age, username, role, password } = req.body;
-  const data = {};
   try {
-    if (!checkPasswordStrength(password)) {
-      data.message =
-        "Weak password</br>password must conmtains min 6 characters: letters, numbers, symbols";
-      return res.render("users/admin/create", { data, user: req.body });
-    }
     const newUser = await addUser(
       firstName,
       lastName,
@@ -43,8 +37,9 @@ exports.createUser = async (req, res) => {
     );
     res.redirect(String(newUser.id));
   } catch (error) {
-    data.message = error;
-    res.render("users/admin/create", { data, user: req.body });
+    res.render("users/admin/create", {
+      alerts: [{ message: "User Not Found", type: "warning" }],
+    });
   }
 };
 
@@ -57,7 +52,7 @@ exports.deleteUserPage = async (req, res) => {
     });
   } else {
     res.render("./error/404", {
-      data: { message: "User Not Found" },
+      alerts: [{ message: "User Not Found", type: "warning" }],
     });
   }
 };
@@ -70,26 +65,27 @@ exports.deleteUser = async (req, res) => {
     // res.render("users/admin/delete", { data: {}, user: user[0] });
   } else {
     res.render("./error/404", {
-      data: { message: "User Not Found" },
+      alerts: [{ message: "User Not Found", type: "warning" }],
     });
   }
 };
 
 exports.userPage = async (req, res) => {
-  if (req.user.role === 'admin') {
+  if (req.user.role === "admin") {
     const user = await getUserById(req.params.id);
     if (user.length !== 0) {
       return res.render("users/admin/details", { data: {}, user: user[0] });
-    }else {
+    } else {
       res.render("./error/404", {
-        data: { message: "User Not Found" },
-      });}
-    } else if (params.id===req.user.id){
+        alerts: [{ message: "User Not Found", type: "warning" }],
+      });
+    }
+  } else if (req.params.id === req.user.id) {
     const user = await getUserById(req.params.id);
     res.render("users/details", { data: {}, user: user[0] });
   } else {
     res.render("./error/404", {
-      data: { message: "User Not Found" },
+      alerts: [{ message: "User Not Found", type: "warning" }],
     });
   }
 };
@@ -103,7 +99,7 @@ exports.editUserPage = async (req, res) => {
     });
   } else {
     res.render("./error/404", {
-      data: { message: "User Not Found" },
+      alerts: [{ message: "User Not Found", type: "warning" }],
     });
   }
 };
@@ -121,7 +117,7 @@ exports.editUser = async (req, res) => {
     res.redirect(`/users/${req.params.id}`);
   } else {
     res.render("./error/404", {
-      data: { message: "User Not Found" },
+      alerts: [{ message: "User Not Found", type: "warning" }],
     });
   }
 };

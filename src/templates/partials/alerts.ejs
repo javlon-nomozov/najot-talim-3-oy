@@ -1,0 +1,9 @@
+<% if (alerts && alerts.length > 0) { %> <% alerts.forEach((alert, i) => { %>
+<br />
+<div class="alert <%= alert.type %>" id="alert<%= i %>">
+  <span><%- alert.message %></span>
+  <button class="close-btn <%= alert.type %>" onclick="closeAlert('<%= i %>')">
+    X
+  </button>
+</div>
+<% }) %> <% } %>

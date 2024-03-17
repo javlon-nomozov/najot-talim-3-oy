@@ -12,21 +12,26 @@ module.exports.loginPage = async (req, res) => {
   if (req.session.user) {
     return res.redirect("/");
   }
-  await res.render("./auth/login", { data: {} });
+  const alerts = req.flash.get("alerts");
+  const data = { alerts, data: {}, layout: "layouts/empty-layout" };
+  console.log(data);
+  await res.render("./auth/login", data);
 };
 
 module.exports.login = async (req, res) => {
-  const data = { message: "Incorrect password or username" };
+  const data = {};
   const { username, password } = req.body;
   const [foundUser] = await getUserByUsername(username);
   if (!foundUser || foundUser.password !== password) {
-    return res.render("./auth/login", { data });
+    req.flash.set('alerts',{ message: "Incorrect password or username", type: "danger" })
+    return res.redirect('/auth/login')
   }
   req.session.user = foundUser;
-  res.redirect("/");
+  res.redirect(req.session.lastPage || "/");
 };
 
 exports.logout = (req, res) => {
   req.session.user = null;
-  res.redirect("/auth/login");
+    req.flash.set('alerts',{ message: "Succesfully log out", type: "warning" })
+    res.redirect("/auth/login");
 };

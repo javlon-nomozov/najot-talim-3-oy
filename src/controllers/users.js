@@ -39,6 +39,10 @@ exports.createUser = async (req, res) => {
       role,
       hashedPassword
     );
+    req.flash.set("alerts", {
+      message: "User is created",
+      type: "success",
+    });
     res.redirect(String(newUser.id));
   } catch (error) {
     res.render("users/admin/create", {
@@ -68,6 +72,10 @@ exports.deleteUser = async (req, res) => {
   const user = await deleteUserById(req.body.id);
   if (user.id !== 0) {
     await deleteTodoByUserId(req.body.id);
+    req.flash.set("alerts", {
+      message: "User was deleted",
+      type: "success",
+    });
     res.redirect("/users");
     // res.render("users/admin/delete", { data: {}, user: user[0] });
   } else {
@@ -128,6 +136,10 @@ exports.editUser = async (req, res) => {
     username,
   });
   if (user.id) {
+    req.flash.set("alerts", {
+      message: "User was updated",
+      type: "success",
+    });
     res.redirect(`/users/${req.params.id}`);
   } else {
     res.render("./error/404", {

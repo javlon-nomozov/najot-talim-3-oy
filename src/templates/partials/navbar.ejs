@@ -1,3 +1,4 @@
+<!-- navbar start -->
 <nav>
   <div class="navbar">
     <div class="container nav-container">
@@ -12,14 +13,15 @@
       </div>
       <div class="menu-items">
         <li><a href="/">Home</a></li>
-        <% if (currentUser) { %> 
-          <% if (currentUser.role==='admin') { %>
-          <li><a href="/users">Users</a></li>
-          <% } %>
-          <li><a href="/guides">Guides</a></li>
-          <li><a href="/todoes">Todoes</a></li>
-          <li><a href="/users/<%= currentUser.id %>">My Profile</a></li>
-          <li><a href="/auth/logout">Logout</a></li>
+        <% if (currentUser) { %> <% if (currentUser.role==='admin') { %>
+        <li><a href="/users">Users</a></li>
+        <% } %>
+        <li><a href="/guides">Guides</a></li>
+        <li><a href="/todoes">Todoes</a></li>
+        <li><a href="/users/<%= currentUser.id %>">My Profile</a></li>
+        <form action="/auth/logout" method="post">
+          <li><button type="submit" >Logout</button></li>
+        </form>
         <% } else { %>
         <li><a href="/auth/login">Login</a></li>
         <% } %>
@@ -27,3 +29,4 @@
     </div>
   </div>
 </nav>
+<!-- navbar end -->

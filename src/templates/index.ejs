@@ -18,7 +18,9 @@
       <h2>My Proile</h2>
     </a>
     <br />
-    <a href="/auth/logout" class="btn">Logout</a>
+    <form action="/auth/logout" method="post">
+      <button class="btn" type="submit" >Logout</button>
+    </form>
   </div>
   <% } else { %>
   <div class="item-card">

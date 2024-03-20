@@ -2,10 +2,11 @@ const express = require("express");
 const { join: path } = require("path");
 const expressLayouts = require("express-ejs-layouts");
 const app = express();
+const config = require("./config");
 
 // Set EJS as view engine
 app.set("view engine", "ejs");
-app.set("views", path(__dirname, "templates"));
+app.set("views", config.viewsDir);
 
 // Use EJS layouts
 app.use(expressLayouts);
@@ -23,7 +24,6 @@ app.use((req, res) => {
   // res.send("404 error");
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+app.listen(config.port, config.hostName, () => {
+  console.log(`Server is running on http://${config.hostName}:${config.port}`);
 });

@@ -2,6 +2,6 @@
 <p>Are you sure want to delete Guide: <%= guide.title%></p>
 <form action="/guides/delete" method="post">
   <input type="hidden" name="id" value="<%= guide.id %>" />
-  <button type="submit" class="btn">Delete</button>
+  <button type="submit" class="btn danger">Delete</button>
 </form>
 <p><a class="back-link" href="/guides">back to Guides page</a></p>

@@ -36,7 +36,13 @@ body {
   list-style: none;
 }
 
-.navbar .nav-container a {
+.navbar .nav-container button {
+  background-color: transparent;
+  border: none;
+}
+
+.navbar .nav-container a,
+.navbar .nav-container button {
   text-decoration: none;
   color: #0e2431;
   font-weight: 500;
@@ -44,7 +50,8 @@ body {
   padding: 0.7rem;
 }
 
-.navbar .nav-container a:hover {
+.navbar .nav-container a:hover,
+.navbar .nav-container button:hover {
   font-weight: bolder;
 }
 
@@ -288,7 +295,7 @@ a:hover {
 }
 
 .close-btn:hover {
-  opacity: .8;
+  opacity: 0.8;
 }
 
 main {

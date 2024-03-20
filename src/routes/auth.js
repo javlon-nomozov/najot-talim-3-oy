@@ -6,6 +6,6 @@ const router = require("express").Router();
 
 router.get("/login", loginPage);
 router.post("/login", validate(loginScheme,'/auth/login'), login);
-router.get("/logout", logout);
+router.post("/logout", logout);
 
 module.exports = router;

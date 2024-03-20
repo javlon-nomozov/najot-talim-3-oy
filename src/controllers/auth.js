@@ -30,6 +30,10 @@ module.exports.login = async (req, res) => {
     return res.redirect("/auth/login");
   }
   req.session.user = foundUser;
+  req.flash.set("alerts", {
+    message: "Welcome",
+    type: "success",
+  });
   res.redirect(req.session.lastPage || "/");
 };
 

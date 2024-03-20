@@ -17,9 +17,10 @@ const { getAllUsers } = require("../models/user");
  * @param {express.NextFunction} next
  */
 exports.allGuidesPage = async (req, res) => {
+  const alerts = req.flash.get("alerts");
   const guides = await getAllGuides();
   if (res.locals.currentUser.role === "admin") {
-    return res.render("guides/admin/list", { guides });
+    return res.render("guides/admin/list", { guides, alerts });
   }
   res.render("guides/list", { guides });
 };
@@ -43,11 +44,20 @@ exports.createGude = async (req, res) => {
   const { title, content, send_others: sendOthers } = req.body;
   try {
     const newGuide = await addGuide(title, content);
+    req.flash.set("alerts", {
+      message: "Guide is created",
+      type: "success",
+    });
+
     if ("true" === sendOthers || true === sendOthers) {
       await addManyTodoes(
         newGuide.id,
         (await getAllUsers()).map((el) => el.id)
       );
+      req.flash.set("alerts", {
+        message: "Guide send to all",
+        type: "success",
+      });
       return res.redirect("/todoes");
     } else {
       return res.redirect(String(newGuide.id));
@@ -68,12 +78,15 @@ exports.createGude = async (req, res) => {
  */
 exports.deleteGuidePage = async (req, res) => {
   const guide = await getGuideById(req.params.id);
+  const alerts = req.flash.get("alerts");
   if (guide.length !== 0) {
     res.render("guides/admin/delete", {
       guide: guide[0],
+      alerts,
     });
   } else {
     res.render("./error/404", {
+      alerts,
       data: { message: "Guide Not Found" },
     });
   }
@@ -89,6 +102,10 @@ exports.deleteGude = async (req, res) => {
   if (guide.id !== 0) {
     res.redirect("/guides");
     await deleteTodoByGuideId(req.body.id);
+    req.flash.set("alerts", {
+      message: "Guide was deleted successfully",
+      type: "success",
+    });
   } else {
     res.render("./error/404", {
       data: { message: "Guide Not Found" },
@@ -128,14 +145,17 @@ exports.getGuidePage = async (req, res) => {
  * @param {express.NextFunction} next
  */
 exports.editGuidePage = async (req, res) => {
+  const alerts = req.flash.get("alerts");
   const guide = await getGuideById(req.params.id);
   if (guide.length !== 0) {
     res.render("guides/admin/edit", {
       guide: guide[0],
+      alerts
     });
   } else {
     res.render("./error/404", {
       data: { message: "Guide Not Found" },
+      alerts
     });
   }
 };
@@ -148,12 +168,21 @@ exports.editGuidePage = async (req, res) => {
 exports.editGuide = async (req, res) => {
   const { title, content, send_others: sendOthers } = req.body;
   const guide = await updateGuideById(req.params.id, { title, content });
+  req.flash.set("alerts", {
+    message: "Guide was updated",
+    type: "success",
+  });
+
   if (guide.id) {
     if ("true" === sendOthers || true === sendOthers) {
       await addManyTodoes(
         guide.id,
         (await getAllUsers()).map((el) => el.id)
       );
+      req.flash.set("alerts", {
+        message: "Guide sent to all users successfully",
+        type: "success",
+      });
       return res.redirect("/todoes");
     }
 

@@ -1,12 +1,12 @@
 const Joi = require("joi");
 
 exports.createTodoeSchem = Joi.object({
-  user_id: Joi.string().required(),
-  guide_id: Joi.string().required(),
+  user: Joi.string().required(),
+  guide: Joi.string().required(),
 });
 
 exports.updateTodoeSchem = Joi.object({
-  user_id: Joi.string(),
-  guide_id: Joi.string(),
+  user: Joi.string(),
+  guide: Joi.string(),
   compleated: Joi.boolean(),
 });

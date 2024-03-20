@@ -31,6 +31,7 @@ exports.allTodoesPage = async (req, res) => {
     res.render("todoes/admin/list", {
       data: { user: req.session.user },
       todoes,
+      alerts,
     });
   }
 };
@@ -56,6 +57,11 @@ exports.createTodo = async (req, res) => {
   if (user_id !== "all") {
     try {
       const newTodo = await addTodo(user_id, guide_id);
+      req.flash.set("alerts", {
+        message: "Todo is created",
+        type: "success",
+      });
+
       res.redirect(String(newTodo.id));
     } catch (error) {
       res.render("todoes/create", {
@@ -92,7 +98,11 @@ exports.deleteTodoPage = async (req, res) => {
 
 exports.deleteTodo = async (req, res) => {
   const todo = await deleteTodoById(req.body.id);
-  if (todo.id !== 0) {
+  if (todo.id) {
+    req.flash.set("alerts", {
+      message: "Todo was deleted",
+      type: "success",
+    });
     res.redirect("/todoes");
     // res.render("todoes/delete", { data: {}, todo: todo[0] });
   } else {
@@ -131,5 +141,9 @@ exports.markAsRead = async (req, res) => {
       data: { message: "Todo Not Found" },
     });
   }
+  req.flash.set("alerts", {
+    message: "Marked as read",
+    type: "success",
+  });
   res.redirect(`/todoes/${req.params.id}`);
 };

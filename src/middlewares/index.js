@@ -1,6 +1,7 @@
 const { Router, urlencoded, static } = require("express");
 const session = require("express-session");
 const { join: path } = require("path");
+const config = require("../config");
 
 require("dotenv").config();
 
@@ -27,6 +28,6 @@ router.use((req, res, next) => {
 // use body parser
 router.use(urlencoded({ extended: false }));
 // Set EJS as static folder
-router.use("/assets", static(path(__dirname, "..", "public")));
+router.use("/assets", static(config.staticDir));
 
 module.exports = router;

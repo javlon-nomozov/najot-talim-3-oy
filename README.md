@@ -7,3 +7,6 @@
 ## 10 - Dars topshiriq - ERP Guide project:
 
 1. Final project
+
+username: jane
+password: 123456

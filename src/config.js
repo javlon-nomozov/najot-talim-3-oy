@@ -12,5 +12,5 @@ module.exports = {
   viewsDir: path(__dirname, "templates"),
 
   // Static files directory
-  staticDir: path(__dirname, "..", "public"),
+  staticDir: path(__dirname, "public"),
 };

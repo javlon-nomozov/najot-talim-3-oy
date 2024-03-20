@@ -15,6 +15,7 @@ router.use(
     // store
   })
 );
+
 router.use(require("./customFlash"));
 router.use((req, res, next) => {
   // set current user
@@ -25,9 +26,11 @@ router.use((req, res, next) => {
   res.locals.alerts = undefined;
   next();
 });
+
 // use body parser
 router.use(urlencoded({ extended: false }));
 // Set EJS as static folder
+console.log(config.staticDir);
 router.use("/assets", static(config.staticDir));
 
 module.exports = router;

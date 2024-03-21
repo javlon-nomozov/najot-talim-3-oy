@@ -1,0 +1,38 @@
+      <main>
+        <section class="user-detail">
+          <div class="item-info">
+            <h2>Your Informations</h2>
+            <div>
+              <strong>First Name:</strong>
+              <span id="first-name"><%= user.firstName %></span>
+            </div>
+            <div>
+              <strong>Last Name:</strong>
+              <span id="last-name"><%= user.lastName %></span>
+            </div>
+            <div>
+              <strong>Age:</strong>
+              <span id="age"><%= user.age %></span>
+            </div>
+            <div>
+              <strong>Role:</strong>
+              <span id="role"><%= user.role %></span>
+            </div>
+            <div>
+              <strong>Username:</strong>
+              <span id="username"><%= user.username %></span>
+            </div>
+            <br />
+            <a class="btn edit" href="/users/<%= user.id %>/edit">Edit</a>
+            <% if (currentUser.id === user.id) { %>
+            <button class="btn delete" disabled>You cannot delete yourself</h3>
+            <% } else{ %>
+            <br />
+            <br />
+            <a class="btn delete" href="/users/<%= user.id %>/delete">
+              Delete
+            </a>
+            <% } %>
+          </div>
+        </section>
+      </main>

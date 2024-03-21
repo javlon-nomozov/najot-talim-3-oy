@@ -1,0 +1,22 @@
+[
+  {
+    "id": "1",
+    "bookId": "1",
+    "clientName": "Client 1",
+    "clientPhone": "123456789",
+    "quantity": 2,
+    "address": "Address 1",
+    "totalPrice": 40,
+    "status": "new"
+  },
+  {
+    "id": "2",
+    "bookId": "2",
+    "clientName": "Client 2",
+    "clientPhone": "987654321",
+    "quantity": 1,
+    "address": "Address 2",
+    "totalPrice": 30,
+    "status": "accepted"
+  }
+]

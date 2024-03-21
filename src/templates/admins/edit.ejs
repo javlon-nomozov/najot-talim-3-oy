@@ -1,0 +1,55 @@
+      <div class="form-container">
+        <h2>Edit User</h2>
+        <form action="/users/<%= user.id %>/edit" method="POST">
+          <div class="form-group">
+            <label for="firstName">First Name:</label>
+            <input
+              type="text"
+              id="firstName"
+              name="firstName"
+              value="<%= user.firstName %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name:</label>
+            <input
+              type="text"
+              id="lastName"
+              name="lastName"
+              value="<%= user.lastName %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="role">Role:</label>
+            <select name="role" id="role">
+              <option value="admin" <%= user.role === 'admin' ? 'selected' : ''  %>>Admin</option>
+              <option value="employee"  <%= user.role === 'employee' ? 'selected' : ''  %>>Employee</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="age">Age:</label>
+            <input
+              type="number"
+              id="age"
+              name="age"
+              value="<%= user.age %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="username">Username:</label>
+            <input
+              type="text"
+              id="username"
+              name="username"
+              value="<%= user.username %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <input type="submit" value="Edit" />
+          </div>
+        </form>
+      </div>

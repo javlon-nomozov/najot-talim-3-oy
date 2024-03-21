@@ -1,0 +1,24 @@
+[
+  {
+    "id": "1",
+    "title": "Book 1",
+    "description": "Description of Book 1",
+    "copies": 100,
+    "cover": "soft",
+    "price": 20,
+    "authorId": "1",
+    "categoryId": "1",
+    "image": "path_to_image_1.jpg"
+  },
+  {
+    "id": "2",
+    "title": "Book 2",
+    "description": "Description of Book 2",
+    "copies": 50,
+    "cover": "hard",
+    "price": 30,
+    "authorId": "2",
+    "categoryId": "2",
+    "image": "path_to_image_2.jpg"
+  }
+]

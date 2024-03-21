@@ -1,0 +1,31 @@
+      <main>
+        <section class="user-list">
+          <h2>All Users</h2>
+          <div class="item-card">
+            <a href="/users/create" class="btn">Add User</a>
+          </div>
+          <div class="item-cards">
+            <% users.forEach(user => { %>
+            <div class="item-card">
+              <a href="/users/<%= user.id %>">
+                <h3><%= `${user.firstName} ${user.lastName}` %></h3>
+                <p>Role: <%= user.role %></p>
+                <p>Age: <%= user.age %></p>
+                <p>Username: <%= user.username %></p>
+              </a>
+              <br />
+              <a class="btn edit" href="/users/<%= user.id %>/edit">Edit</a>
+              <% if (currentUser.id === user.id) { %>
+              <button class="btn delete" disabled>You cannot delete yourself</h3>
+              <% } else{ %>
+              <br />
+              <br />
+              <a class="btn delete" href="/users/<%= user.id %>/delete">
+                Delete
+              </a>
+              <% } %>
+              </div>
+            <% }) %>
+          </div>
+        </section>
+      </main>

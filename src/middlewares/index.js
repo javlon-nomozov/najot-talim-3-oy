@@ -19,8 +19,9 @@ router.use(
 router.use(require("./customFlash"));
 router.use((req, res, next) => {
   // set current user
+  req.session.user = req.session.user ?? {role: "guest"}
   req.user = req.session.user;
-  res.locals.currentUser = req.user;
+  res.locals.currentUser = req.user
   // set default variables to locals
   res.locals.title = "User Manegment System";
   res.locals.alerts = undefined;

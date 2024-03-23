@@ -1,23 +1,26 @@
 const Joi = require("joi");
 
-exports.createUserSchem = Joi.object().keys({
-  firstName: Joi.string().required().trim(),
-  lastName: Joi.string().required().trim(),
-  age: Joi.number().min(16).max(75).required(),
+exports.registerUserSchem = Joi.object().keys({
+  name: Joi.string().min(3).max(30).required().trim(),
   username: Joi.string().alphanum().min(3).max(30).required(),
-  role: Joi.string().valid("admin", "employee").required(),
   password: Joi.string()
     .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
-    .min(6)
+    .min(4)
     .max(20)
     .required(),
+});
+
+exports.loginSchem = Joi.object().keys({
+  username: Joi.string().required(),
+  password: Joi.string().required(),
 });
 
 exports.updateUserSchem = Joi.object().keys({
   firstName: Joi.string().trim(),
   lastName: Joi.string().trim(),
-  age: Joi.number().min(16).max(75),
   username: Joi.string().alphanum().min(3).max(30),
-  role: Joi.string().valid("admin", "employee"),
-  // password: Joi.string().pattern(new RegExp('^[a-zA-Z0-9]{3,30}$')).min(6).max(20)
+  password: Joi.string()
+    .pattern(new RegExp("^[a-zA-Z0-9]{3,30}$"))
+    .min(6)
+    .max(20),
 });

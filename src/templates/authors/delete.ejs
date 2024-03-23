@@ -1,0 +1,7 @@
+<h1>Delete page</h1>
+<p>Are you sure want to delete this author: <b><%= author.name%></b></p>
+<form action="/authors/delete" method="post">
+  <input type="hidden" name="id" value="<%= author.id %>" />
+  <button type="submit" class="btn danger">Delete</button>
+</form>
+<p><a href="/authors">back to authors page</a></p>

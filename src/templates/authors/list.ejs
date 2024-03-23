@@ -1,0 +1,26 @@
+<main>
+  <section class="item-list">
+    <h2>All Authors</h2>
+    <br>
+    <a class="btn" href="/authors/create">Add Author</a>
+    <br>
+    <br>
+    <div class="item-cards">
+      <% authors.forEach(author => { %>
+      <div class="item-card">
+        <a href="/authors/<%= author.id %>">
+          <h3><%= author.name %></h3>
+        </a>
+        <br />
+        <% if (currentUser.role === 'admin') { %>
+        <div>
+          <a class="btn edit" href="/authors/<%= author.id %>/edit">Edit</a>
+          <a class="btn delete" href="/authors/<%= author.id %>/delete">Delete</a>
+        </div>
+
+        <% } %>
+      </div>
+      <% }) %>
+    </div>
+  </section>
+</main>

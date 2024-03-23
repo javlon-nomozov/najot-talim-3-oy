@@ -1,12 +1,8 @@
-const checkPasswordStrength = require("../utils/password-checher");
 const {
-  addUser,
   getAllUsers,
   getUserById,
-  updateUserById,
-  deleteUserById,
-} = require("../models/user");
-const { deleteTodoByUserId } = require("../models/todoes");
+  deleteUserById
+} = require("../models/users");
 const { hashPassword } = require("../utils/bcrypt-utilities");
 
 /**
@@ -18,44 +14,14 @@ const { hashPassword } = require("../utils/bcrypt-utilities");
 exports.allUsersPage = async (req, res) => {
   const alerts = req.flash.get("alerts");
   const users = await getAllUsers();
-  res.render("users/admin/list", { data: {}, users, alerts });
-};
-
-exports.createUserPage = (req, res) => {
-  const alerts = req.flash.get("alerts");
-  const data = {};
-  res.render("users/admin/create", { data, user: {}, alerts });
-};
-
-exports.createUser = async (req, res) => {
-  const { firstName, lastName, age, username, role, password } = req.body;
-  const hashedPassword = await hashPassword(password);
-  try {
-    const newUser = await addUser(
-      firstName,
-      lastName,
-      age,
-      username.toLowerCase(),
-      role,
-      hashedPassword
-    );
-    req.flash.set("alerts", {
-      message: "User is created",
-      type: "success",
-    });
-    res.redirect(String(newUser.id));
-  } catch (error) {
-    res.render("users/admin/create", {
-      data: { message: "User Not Found" },
-    });
-  }
+  res.render("users/list", { users, alerts });
 };
 
 exports.deleteUserPage = async (req, res) => {
   const alerts = req.flash.get("alerts");
   const user = await getUserById(req.params.id);
   if (user.length !== 0) {
-    res.render("users/admin/delete", {
+    res.render("auth/admin/delete", {
       data: {},
       user: user[0],
       alerts,
@@ -103,44 +69,6 @@ exports.userPage = async (req, res) => {
   } else if (req.params.id === req.user.id) {
     const user = await getUserById(req.params.id);
     res.render("users/details", { data: {}, user: user[0], alerts });
-  } else {
-    res.render("./error/404", {
-      data: { message: "User Not Found" },
-    });
-  }
-};
-
-exports.editUserPage = async (req, res) => {
-  const alerts = req.flash.get("alerts");
-  const user = await getUserById(req.params.id);
-  if (user.length !== 0) {
-    res.render("users/admin/edit", {
-      data: {},
-      user: user[0],
-      alerts,
-    });
-  } else {
-    res.render("./error/404", {
-      data: { message: "User Not Found" },
-    });
-  }
-};
-
-exports.editUser = async (req, res) => {
-  const { firstName, lastName, age, role, username } = req.body;
-  const user = await updateUserById(req.params.id, {
-    firstName,
-    lastName,
-    age,
-    role,
-    username,
-  });
-  if (user.id) {
-    req.flash.set("alerts", {
-      message: "User was updated",
-      type: "success",
-    });
-    res.redirect(`/users/${req.params.id}`);
   } else {
     res.render("./error/404", {
       data: { message: "User Not Found" },

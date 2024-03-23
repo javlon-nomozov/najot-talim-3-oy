@@ -1,0 +1,30 @@
+<main>
+  <section class="element-detail">
+    <div class="item-info">
+      <h2>Author Information</h2>
+      <div>
+        <strong>Name:</strong>
+        <h2 style="display: inline-block;" id="first-name"><%= author.name %></h2>
+      </div>
+      
+      <br />
+      <a class="btn edit" href="/authors/<%= author.id %>/edit">Edit</a>
+      <a class="btn delete" href="/authors/<%= author.id %>/delete"> Delete </a>
+      <br>
+      <br>
+      <div>
+        
+        <strong>Books (<%= author.bookCount %>)</strong>
+        <ul>
+          <li>
+            <span id="last-name"><a href="#">Book 1</a></span>
+          </li>
+          <li>
+            <span id="last-name"><a href="#">Book 2</a></span>
+          </li>
+        </ul>
+      </div>
+      <br />
+    </div>
+  </section>
+</main>

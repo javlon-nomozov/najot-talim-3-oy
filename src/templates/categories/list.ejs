@@ -1,0 +1,26 @@
+<main>
+  <section class="item-list">
+    <h2>All Category</h2>
+    <br>
+    <a class="btn" href="/categories/create">Add Category</a>
+    <br>
+    <br>
+    <div class="item-cards">
+      <% categories.forEach(category => { %>
+      <div class="item-card">
+        <a href="/categories/<%= category.id %>">
+          <h3><%= category.name %></h3>
+        </a>
+        <br />
+        <% if (currentUser.role==='admin') { %>
+        <div>
+          <a class="btn edit" href="/categories/<%= category.id %>/edit">Edit</a>
+          <a class="btn delete" href="/categories/<%= category.id %>/delete">Delete</a>
+        </div>
+
+        <% } %>
+      </div>
+      <% }) %>
+    </div>
+  </section>
+</main>

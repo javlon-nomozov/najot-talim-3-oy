@@ -1,5 +1,6 @@
 <!-- alerts start -->
-<% if (alerts && alerts.length > 0) { %> <% alerts.forEach((alert, i) => { %>
+<% if (alerts && alerts.length > 0) { %>
+  <% alerts.forEach((alert, i) => { %>
 <br />
 <div class="alert <%= alert.type %>" id="alert<%= i %>">
   <span><%- alert.message %></span>

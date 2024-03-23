@@ -8,16 +8,18 @@ const express = require("express");
  */
 
 module.exports = (req, res, next) => {
-  if (req.session.user) {
+  if (req.session.user.role!== "guest") {
     return next();
   }
-  const { url } = req;
-  if (
-    url.startsWith("/users") ||
-    url.startsWith("/guides") ||
-    url.startsWith("/todoes")
-  ) {
-    req.session.lastPage = url;
-  }
+  // const { url } = req;
+  // if (
+  //   url.startsWith("/auth") ||
+  //   url.startsWith("/authors") ||
+  //   url.startsWith("/authors") ||
+  //   url.startsWith("/authors") ||
+  //   url.startsWith("/categories")
+  // ) {
+  //   req.session.lastPage = url;
+  // }
   res.redirect("/auth/login");
 };

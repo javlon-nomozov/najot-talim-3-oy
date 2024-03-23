@@ -6,7 +6,7 @@ const express = require("express");
  * @param {express.NextFunction} next
  */
 
-const { addAdmin } = require("../models/admin");
+const { addAdmin } = require("../models/users");
 const { comparePasswords } = require("../utils/bcrypt-utilities");
 
 module.exports.createAdminPage = async (req, res) => {

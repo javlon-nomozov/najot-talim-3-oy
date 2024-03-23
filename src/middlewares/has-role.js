@@ -7,7 +7,7 @@ module.exports = function (...allowedRoles) {
    * @param {express.NextFunction} next
    */
   return (req, res, next) => {
-    if (allowedRoles.includes(req.session.user.role)) {
+    if (allowedRoles.includes(req.session?.user?.role)) {
       return next();
     }
     req.flash.set("alerts", {

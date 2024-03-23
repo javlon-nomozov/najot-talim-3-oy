@@ -21,7 +21,6 @@ app.use((req, res) => {
     data: { message: "Page Not Found" },
     layout: "layouts/empty-layout",
   });
-  // res.send("404 error");
 });
 
 app.listen(config.port, config.hostName, () => {

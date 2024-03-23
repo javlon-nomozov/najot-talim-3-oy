@@ -1,0 +1,9 @@
+<h1>Delete page</h1>
+<p>
+  Are you sure want to delete Book: <%= book.title %>
+</p>
+<form action="/books/delete" method="post">
+  <input type="hidden" name="id" value="<%= book.id %>" />
+  <button type="submit" class="btn">Delete</button>
+</form>
+<p><a  href="/bookes">back to bookes page</a></p>

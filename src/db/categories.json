@@ -1,4 +1,1 @@
-[
-  { "id": "1", "name": "Category 1" },
-  { "id": "2", "name": "Category 2" }
-]
+{"2":{"id":"2","name":"Category 2.1","bookCount":2},"dbf08c89-785f-4e34-80a4-6299edde8a88":{"id":"dbf08c89-785f-4e34-80a4-6299edde8a88","name":"Category arg","bookCount":3}}

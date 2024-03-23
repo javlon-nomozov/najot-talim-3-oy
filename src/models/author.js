@@ -1,34 +1,36 @@
 const fs = require("fs");
 const { join: path } = require("path");
 const { v4: uuid } = require("uuid");
+const slugify = require("slugify");
 
 const filePath = path(__dirname, "..", "db", "authors.json");
 
-function getAllAuthors() {
+async function getAllAuthors() {
   return new Promise((resolve, reject) => {
     fs.readFile(filePath, (err, data) => {
       if (err) {
         return reject(err);
       }
-      resolve(JSON.parse(data.toString() || "[]"));
+      resolve(JSON.parse(data.toString() || "{}"));
     });
   });
 }
 
-function addAuthor(name) {
+async function addAuthor(name) {
   return new Promise(async (resolve, reject) => {
     let authors;
     try {
       authors = await getAllAuthors();
     } catch (error) {
-      authors = [];
+      authors = {};
     }
 
     const newAuthor = {
       id: uuid(),
       name,
+      bookCount: 0, // Initialize bookCount to 0 when adding a new author
     };
-    authors.push(newAuthor);
+    authors[newAuthor.id] = newAuthor;
 
     fs.writeFile(filePath, JSON.stringify(authors), (err) => {
       if (err) {
@@ -39,13 +41,13 @@ function addAuthor(name) {
   });
 }
 
-function getAuthorById(id) {
+async function getAuthorById(id) {
   return new Promise(async (resolve, reject) => {
     try {
       const authors = await getAllAuthors();
-      const author = authors.find((author) => author.id === id);
+      const author = authors[id];
       if (!author) {
-        return reject(new Error(`Author not found with id: ${id}`));
+        return reject(`Author not found with id: ${id}`);
       }
       resolve(author);
     } catch (error) {
@@ -54,73 +56,94 @@ function getAuthorById(id) {
   });
 }
 
-function updateAuthorById(id, updatedAuthor) {
+async function updateAuthorById(id, updatedAuthor) {
   return new Promise(async (resolve, reject) => {
     let authors;
     try {
       authors = await getAllAuthors();
     } catch (error) {
-      authors = [];
+      authors = {};
     }
 
-    const index = authors.findIndex((author) => author.id === id);
-    if (index === -1) {
-      return reject(new Error(`Author not found with id: ${id}`));
+    if (!authors[id]) {
+      return reject(`Author not found with id: ${id}`);
     }
 
-    authors[index] = { ...authors[index], ...updatedAuthor };
+    authors[id] = { ...authors[id], ...updatedAuthor };
 
     fs.writeFile(filePath, JSON.stringify(authors), (err) => {
       if (err) {
         return reject(err);
       }
-      resolve(authors[index]);
+      resolve(authors[id]);
     });
   });
 }
 
-function deleteAuthorById(id) {
+async function deleteAuthorById(id) {
   return new Promise(async (resolve, reject) => {
     let authors;
     try {
       authors = await getAllAuthors();
-    } catch (error) {
-      authors = [];
-    }
 
-    const index = authors.findIndex((author) => author.id === id);
-    if (index === -1) {
+      if (!authors[id]) {
+        return reject(new Error(`Author not found with id: ${id}`));
+      }
+      const deletedAuthor = { ...authors[id] };
+      delete authors[id];
+      fs.writeFile(filePath, JSON.stringify(authors), (err) => {
+        if (err) {
+          return reject(err);
+        }
+        resolve(deletedAuthor);
+      });
+    } catch (error) {
+      authors = {};
       return reject(new Error(`Author not found with id: ${id}`));
     }
-
-    const deletedAuthor = authors.splice(index, 1)[0];
-
-    fs.writeFile(filePath, JSON.stringify(authors), (err) => {
-      if (err) {
-        return reject(err);
-      }
-      resolve(deletedAuthor);
-    });
   });
 }
 
-// getAllAuthors().then((data) => console.log(data));
-// addAuthor("Author 3").then((data) => console.log(data));
+async function increaseAuthorBookCount(authorId) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const author = await getAuthorById(authorId);
+      if (!author) {
+        return reject(new Error(`Author not found with id: ${authorId}`));
+      }
 
-// getAllAuthors().then((data) => console.log(data));
+      author.bookCount++;
+      const updatedAuthor = await updateAuthorById(authorId, author);
+      resolve(updatedAuthor);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
 
-// updateAuthorById("709e6a76-3db0-4c31-b583-f03b302109c2", {
-//   name: "Authorr 3",
-// }).then((data) => console.log(data));
+async function decreaseAuthorBookCount(authorId) {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const author = await getAuthorById(authorId);
+      if (!author) {
+        return reject(new Error(`Author not found with id: ${authorId}`));
+      }
 
-// deleteAuthorById("709e6a76-3db0-4c31-b583-f03b302109c2").then((data) =>
-//   console.log(data)
-// );
+      author.bookCount++;
+      const updatedAuthor = await updateAuthorById(authorId, author);
+      resolve(updatedAuthor);
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
 
 module.exports = {
   getAllAuthors,
   addAuthor,
   getAuthorById,
   updateAuthorById,
+  increaseAuthorBookCount,
+  decreaseAuthorBookCount,
   deleteAuthorById,
 };

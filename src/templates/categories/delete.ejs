@@ -1,0 +1,7 @@
+<h1>Delete page</h1>
+<p>Are you sure want to delete this category: <b><%= category.name%></b></p>
+<form action="/categories/delete" method="post">
+  <input type="hidden" name="id" value="<%= category.id %>" />
+  <button type="submit" class="btn danger">Delete</button>
+</form>
+<p><a href="/categories">back to categories page</a></p>

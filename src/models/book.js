@@ -14,8 +14,44 @@ async function getAllBooks() {
     });
   });
 }
+async function getBooksByAuthorId(authorId) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        return reject(err);
+      }
+      const result = Object.values(JSON.parse(data.toString() || "{}")).filter(
+        (book) => book.authorId === authorId
+      );
+      return resolve(result);
+    });
+  });
+}
 
-async function addBook(title, description, copies, cover, price, authorId, categoryId, image) {
+async function getBooksByCategoryId(categoryId) {
+  return new Promise((resolve, reject) => {
+    fs.readFile(filePath, (err, data) => {
+      if (err) {
+        return reject(err);
+      }
+      const result = Object.values(JSON.parse(data.toString() || "{}")).filter(
+        (book) => book.categoryId === categoryId
+      );
+      return resolve(result);
+    });
+  });
+}
+
+async function addBook(
+  title,
+  description,
+  copies,
+  cover,
+  price,
+  authorId,
+  categoryId,
+  image
+) {
   return new Promise(async (resolve, reject) => {
     let books;
     try {
@@ -111,8 +147,10 @@ async function deleteBookById(id) {
 
 module.exports = {
   getAllBooks,
-  addBook,
   getBookById,
+  getBooksByAuthorId,
+  getBooksByCategoryId,
+  addBook,
   updateBookById,
   deleteBookById,
 };

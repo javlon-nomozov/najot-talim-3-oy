@@ -8,6 +8,8 @@ const {
   deleteCategoryById,
 } = require("../models/category");
 
+const { getBooksByCategoryId } = require("../models/book");
+
 /**
  * @param {express.Request} req
  * @param {express.Response} res
@@ -125,9 +127,11 @@ exports.getCategoryPage = async (req, res) => {
     const category = await getCategoryById(req.params.id);
 
     const alerts = req.flash.get("alerts");
+    const books = await getBooksByCategoryId(req.params.id);
     res.render("categories/details", {
       category,
       alerts,
+      books,
     });
   } catch (error) {
     res.render("./error/404", {

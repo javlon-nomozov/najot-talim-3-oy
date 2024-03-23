@@ -4,8 +4,25 @@
       <h2><%= book.title %></h2>
       <div>
         <p><%= book.description %></p>
-        <p>Author: <a href="/authors/<%= book.authorId %>" target="_blank" rel="noopener noreferrer"><%= authors[book.authorId].name %></a></p>
-        <p>Category: <a href="/categories/<%= book.categoryId %>" target="_blank" rel="noopener noreferrer"> <%= categories[book.categoryId].name %></a></p>
+        <p>
+          Author:
+          <a
+            href="/authors/<%= book.authorId %>"
+            target="_blank"
+            rel="noopener noreferrer"
+            ><%= authors[book.authorId].name %></a
+          >
+        </p>
+        <p>
+          Category:
+          <a
+            href="/categories/<%= book.categoryId %>"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <%= categories[book.categoryId].name %></a
+          >
+        </p>
         <p>Copies: <%= book.copies %></p>
         <p>Price: $<%= book.price %></p>
         <p>
@@ -21,11 +38,13 @@
         <input type="number" id="quantity" name="quantity" value="1" min="1" />
         <button class="btn" type="submit">Order</button>
       </form>
-      <br>
+      <% if (currentUser.role ==='admin') { %>
+      <br />
       <div>
         <a class="btn edit" href="/books/<%= book.id %>/edit">Edit</a>
         <a class="btn delete" href="/books/<%= book.id %>/delete">Delete</a>
       </div>
+      <% } %>
     </div>
   </section>
 </main>

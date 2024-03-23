@@ -1,5 +1,5 @@
 const express = require("express");
-const { getBookById, getAllBooks } = require("../models/book");
+const { getBookById, getAllBooks, updateBookById } = require("../models/book");
 const {
   addOrder,
   getOrderById,
@@ -48,7 +48,13 @@ exports.createOrder = async (req, res) => {
     req.body;
   try {
     const book = await getBookById(bookId);
-    if (book && book.copies) {
+    if (book.copies < quantity) {
+      req.flash.set("alerts", {
+        typeof: "danger",
+        message: "The amount of books is not enough. try to sell less books.",
+      });
+      return res.redirect(`/`)
+    } else if (book && book.copies) {
       const totalPrice = quantity * book.price + 30000;
       const newOrder = await addOrder(
         bookId,
@@ -59,12 +65,20 @@ exports.createOrder = async (req, res) => {
         totalPrice,
         status
       );
+      console.log(bookId, { copies: book.copies - quantity });
+      console.log(await updateBookById(bookId, { copies: book.copies - quantity }));
+      req.flash.set("alerts", {
+        type: "success",
+        message: "Order created successfully",
+      });
+      return res.redirect("/");
+    }else {
+      req.flash.set("alerts", {
+        type: "danger",
+        message: "Unnown error occured.",
+      });
+      return res.redirect("/");
     }
-    req.flash.set("alerts", {
-      type: "success",
-      message: "Order created successfully",
-    });
-    res.redirect("/");
   } catch (error) {
     req.flash.set("alerts", { type: "danger", message: error });
     res.redirect(`/orders/create/?bookId=${bookId}&quantity=${quantity}`);

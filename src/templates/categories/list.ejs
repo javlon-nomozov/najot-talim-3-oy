@@ -13,11 +13,13 @@
         </a>
         <br />
         <% if (currentUser.role==='admin') { %>
-        <div>
+          <% if (currentUser.role==='admin') { %>
+            <div>
           <a class="btn edit" href="/categories/<%= category.id %>/edit">Edit</a>
+        
           <a class="btn delete" href="/categories/<%= category.id %>/delete">Delete</a>
         </div>
-
+        <% } %>
         <% } %>
       </div>
       <% }) %>

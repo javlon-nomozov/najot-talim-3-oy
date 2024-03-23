@@ -11,10 +11,10 @@ const {
   // deleteOrder,
 } = require("../controllers/orders");
 
+router.post("/create", validate(orderSchema), createOrder);
+router.get("/books", createOrderPage);
 router.use("/", accessCheckerMid('admin','user'));
 router.get("/", allOrdersPage);
-router.get("/books", createOrderPage);
-router.post("/create", validate(orderSchema), createOrder);
 router.post("/:id/change-status", changeOrderStatus);
 // router.post("/:id/delete", deleteOrder);
 module.exports = router;

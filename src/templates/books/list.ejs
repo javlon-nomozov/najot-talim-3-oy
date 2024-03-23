@@ -1,7 +1,7 @@
 <main>
   <section class="item-list">
     <h2>Books</h2>
-    <br>
+    <br />
     <a class="btn success" href="/books/create">Kitob qo'shish</a>
     <br />
     <br />
@@ -9,21 +9,23 @@
       <% books.forEach(book => { %>
       <div class="item-card">
         <a href="/books/<%= book.id %>">
-          <img src="<%= book.image %>" alt="<%= book.title %>" height="200">
+          <img src="<%= book.image %>" alt="<%= book.title %>" height="200" />
           <h3><%= book.title %></h3>
-          <p>Cover: <%= `${book.cover}` %>
-            <br>Count: <%= `${book.copies}` %>
-            <br><%= `${book.description}` %></p>
-            <br>Category: <%= categories[book.categoryId].name %>
-            <br>Author: <%= authors[book.authorId].name %>
-            <br><br>
+          <p>
+            Cover: <%= `${book.cover}` %> <br />Count: <%= `${book.copies}` %>
+            <br /><%= `${book.description}` %>
+          </p>
+          <br />Category: <%= categories[book.categoryId].name %> <br />Author:
+          <%= authors[book.authorId].name %> <br /><br />
         </a>
         <br />
-         
+
+        <% if (currentUser.role==='admin') { %>
         <div>
           <a class="btn edit" href="/books/<%= book.id %>/edit">Edit</a>
           <a class="btn delete" href="/books/<%= book.id %>/delete">Delete</a>
         </div>
+        <% } %>
       </div>
       <% }) %>
     </div>

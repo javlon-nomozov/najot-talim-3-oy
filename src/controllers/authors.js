@@ -7,6 +7,7 @@ const {
   updateAuthorById,
   deleteAuthorById,
 } = require("../models/author");
+const { getBooksByAuthorId } = require("../models/book");
 // const { deleteTodoByAuthorId, addManyTodoes } = require("../models/todoes");
 // const { getAllUsers } = require("../models/user");
 
@@ -81,9 +82,8 @@ exports.deleteAuthorPage = async (req, res) => {
         data: { message: "Author Not Found" },
       });
     }
-      
   } catch (error) {
-    req.flash.set("alerts", {message: error.message, type: "danger"})
+    req.flash.set("alerts", { message: error.message, type: "danger" });
     return res.redirect("/authors");
   }
 };
@@ -131,11 +131,13 @@ exports.deleteAuthor = async (req, res) => {
 exports.getAuthorPage = async (req, res) => {
   try {
     const author = await getAuthorById(req.params.id);
+    books = await getBooksByAuthorId(req.params.id);
     if (author) {
       const alerts = req.flash.get("alerts");
       res.render("authors/details", {
         author,
         alerts,
+        books,
       });
     } else {
       res.render("./error/404", {

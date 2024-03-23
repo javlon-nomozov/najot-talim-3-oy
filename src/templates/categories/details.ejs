@@ -6,21 +6,23 @@
         <strong>Name:</strong>
         <h2 style="display: inline-block;" id="first-name"><%= category.name %></h2>
       </div>
-      <a class="btn edit" href="/categoryies/<%= category.id %>/edit">Edit</a>
-      
-      <a class="btn delete" href="/categoryies/<%= category.id %>/delete"> Delete </a>
+      <% if (currentUser.role==='admin') { %>
+        <a class="btn edit" href="/categories/<%= category.id %>/edit">Edit</a>
+        <a class="btn delete" href="/categories/<%= category.id %>/delete"> Delete </a>
+      <% } %>
       <br>
       <br>
       <div>
-        <strong>Books (<%= category.bookCount %>)</strong>
-        <ul>
-          <li>
-            <span id="last-name"><a href="#">Book 1</a></span>
-          </li>
-          <li>
-            <span id="last-name"><a href="#">Book 2</a></span>
-          </li>
-        </ul>
+        <strong><%= books?.length ? `Books (${ category.bookCount })` : 'There is no book in this category' %></strong>
+        <% if (books.length) { %>
+          <ul>
+            <% books.forEach(book => { %>
+              <li>
+                <span id="last-name"><a href="/books/<%= book.id %>"><%= book.title %></a></span>
+              </li> 
+            <% }) %>
+          </ul>
+        <% } %>
       </div>
       <br />
     </div>

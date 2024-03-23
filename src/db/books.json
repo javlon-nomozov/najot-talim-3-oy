@@ -1,1 +1,13 @@
-{"1":{"id":"1","title":"Book 1","description":"Description of Book 1","copies":10,"cover":"hard","price":20000,"authorId":"05678cb0-2862-40a7-820a-d578933c65c0","categoryId":"dbf08c89-785f-4e34-80a4-6299edde8a88","image":"https://smartmobilestudio.com/wp-content/uploads/2012/06/leather-book-preview.png"},"2":{"id":"2","title":"Book 2","description":"Description of Book 2","copies":50,"cover":"hard","price":30,"authorId":"05678cb0-2862-40a7-820a-d578933c65c0","categoryId":"2","image":"https://shmector.com/_ph/6/708614587.png"},"965faed8-1ae9-4b5e-b661-a11f4f947451":{"id":"965faed8-1ae9-4b5e-b661-a11f4f947451","title":"Pride and Prejudice","description":"Pride and Prejudice is the second novel by English author Jane Austen, published in 1813. A novel of manners, it follows the character development of Elizabeth Bennet, the protagonist of the book, who...","copies":5,"cover":"soft","price":35000,"authorId":"05678cb0-2862-40a7-820a-d578933c65c0","categoryId":"2","image":"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSKPneOFTvRKKmb4Qzd6_gF1bCqKB_RhJ3HlfZysW7h3CYfnoXf"}}
+{
+  "965faed8-1ae9-4b5e-b661-a11f4f947451": {
+    "id": "965faed8-1ae9-4b5e-b661-a11f4f947451",
+    "title": "Pride and Prejudice",
+    "description": "Pride and Prejudice is the second novel by English author Jane Austen, published in 1813. A novel of manners, it follows the character development of Elizabeth Bennet, the protagonist of the book, who...",
+    "copies": 37,
+    "cover": "soft",
+    "price": 35000,
+    "authorId": "05678cb0-2862-40a7-820a-d578933c65c0",
+    "categoryId": "dbf08c89-785f-4e34-80a4-6299edde8a88",
+    "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSKPneOFTvRKKmb4Qzd6_gF1bCqKB_RhJ3HlfZysW7h3CYfnoXf"
+  }
+}

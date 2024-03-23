@@ -7,10 +7,11 @@ const express = require("express");
  */
 
 const { getUserByUsername } = require("../models/users");
-const { comparePasswords } = require("../utils/bcrypt-utilities");
+const { comparePasswords, hashPassword } = require("../utils/bcrypt-utilities");
+const { addUser } = require("../models/users");
 
 exports.registerPage = (req, res) => {
-  if (req.session.user.role!== "guest") {
+  if (req.session.user.role !== "guest") {
     return res.redirect("/");
   }
   const alerts = req.flash.get("alerts");
@@ -46,7 +47,7 @@ exports.register = async (req, res) => {
 };
 
 module.exports.loginPage = async (req, res) => {
-  if (req.session.user.role!== "guest") {
+  if (req.session.user.role !== "guest") {
     return res.redirect("/");
   }
   const alerts = req.flash.get("alerts");

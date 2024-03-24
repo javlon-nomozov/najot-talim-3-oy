@@ -15,7 +15,6 @@ const {
 const { createAuthorSchem, editAuthorSchem } = require("../schemas/author");
 
 // all author
-// router.use(accessCheckerMid("admin"));
 router.get("/", allAuthorsPage);
 
 router.get("/create", accessCheckerMid("admin"), createAuthorPage);
@@ -37,7 +36,6 @@ router.post("/delete", accessCheckerMid("admin"), deleteAuthor);
 
 // get edit by id
 router.get("/:id/edit", accessCheckerMid("admin"), editAuthorPage);
-// router.post("/:id/edit", editAuthor);
 
 // post edit by id
 router.post(

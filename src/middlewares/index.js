@@ -12,7 +12,6 @@ router.use(
     secret: process.env.SECRET_KEY || "very_secret",
     resave: false,
     saveUninitialized: true,
-    // store
   })
 );
 
@@ -31,7 +30,6 @@ router.use((req, res, next) => {
 // use body parser
 router.use(urlencoded({ extended: false }));
 // Set EJS as static folder
-console.log(config.staticDir);
 router.use("/assets", static(config.staticDir));
 
 module.exports = router;

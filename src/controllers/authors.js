@@ -8,8 +8,6 @@ const {
   deleteAuthorById,
 } = require("../models/author");
 const { getBooksByAuthorId } = require("../models/book");
-// const { deleteTodoByAuthorId, addManyTodoes } = require("../models/todoes");
-// const { getAllUsers } = require("../models/user");
 
 /**
  * @param {express.Request} req

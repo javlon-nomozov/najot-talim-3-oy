@@ -6,8 +6,8 @@ const createBookSchema = Joi.object({
   copies: Joi.number().integer().min(1).required(),
   cover: Joi.string().valid("soft", "hard").required(),
   price: Joi.number().min(0).required(),
-  authorId: Joi.string().required(), // Assuming authorId is a string for referencing the author
-  categoryId: Joi.string().required(), // Assuming categoryId is a string for referencing the category
+  authorId: Joi.string().required(),
+  categoryId: Joi.string().required(),
   image: Joi.string().uri().required(),
 });
 
@@ -17,8 +17,8 @@ const editBookSchema = Joi.object({
   copies: Joi.number().integer().min(1),
   cover: Joi.string().valid("soft", "hard"),
   price: Joi.number().min(0),
-  authorId: Joi.string(), // Assuming authorId is a string for referencing the author
-  categoryId: Joi.string(), // Assuming categoryId is a string for referencing the category
+  authorId: Joi.string(),
+  categoryId: Joi.string(),
   image: Joi.string().uri(),
 });
 

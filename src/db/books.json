@@ -1,13 +1,1 @@
-{
-  "965faed8-1ae9-4b5e-b661-a11f4f947451": {
-    "id": "965faed8-1ae9-4b5e-b661-a11f4f947451",
-    "title": "Pride and Prejudice",
-    "description": "Pride and Prejudice is the second novel by English author Jane Austen, published in 1813. A novel of manners, it follows the character development of Elizabeth Bennet, the protagonist of the book, who...",
-    "copies": 37,
-    "cover": "soft",
-    "price": 35000,
-    "authorId": "05678cb0-2862-40a7-820a-d578933c65c0",
-    "categoryId": "dbf08c89-785f-4e34-80a4-6299edde8a88",
-    "image": "https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSKPneOFTvRKKmb4Qzd6_gF1bCqKB_RhJ3HlfZysW7h3CYfnoXf"
-  }
-}
+{"965faed8-1ae9-4b5e-b661-a11f4f947451":{"id":"965faed8-1ae9-4b5e-b661-a11f4f947451","title":"Pride and Prejudice","description":"Pride and Prejudice is the second novel by English author Jane Austen, published in 1813. A novel of manners, it follows the character development of Elizabeth Bennet, the protagonist of the book, who...","copies":36,"cover":"soft","price":35000,"authorId":"05678cb0-2862-40a7-820a-d578933c65c0","categoryId":"dbf08c89-785f-4e34-80a4-6299edde8a88","image":"https://encrypted-tbn3.gstatic.com/images?q=tbn:ANd9GcSKPneOFTvRKKmb4Qzd6_gF1bCqKB_RhJ3HlfZysW7h3CYfnoXf"},"be349995-5658-4339-afe9-9c9621ef3a01":{"id":"be349995-5658-4339-afe9-9c9621ef3a01","title":"Northanger Abbey","description":"What is the story of the Northanger Abbey?\r\nNorthanger Abbey | Jane Austen's House\r\nThe story follows Catherine Morland, the seventeen-year-old daughter of a country clergyman, who is now 'in training for a heroine'. Leaving her village home to enjoy a season in Bath, Catherine embarks on a series of adventures, encountering romance, friendship, fashion and social ambition.","copies":21,"cover":"soft","price":15300,"authorId":"05678cb0-2862-40a7-820a-d578933c65c0","categoryId":"dbf08c89-785f-4e34-80a4-6299edde8a88","image":"https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcTPVaLb4Abwb8EmHOf2oMxfUG0HOV3TDC7x6juUA6azowE0fiB3"}}

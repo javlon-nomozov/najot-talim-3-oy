@@ -18,8 +18,3 @@ class CustomFlashMessageUtil {
 }
 
 module.exports = new CustomFlashMessageUtil();
-// const foo = new CustomFlashMessageUtil();
-// foo.set("error", "Error 1");
-// foo.set("error", "Error 2");
-// console.log(foo.get("error"));
-// console.log(foo);

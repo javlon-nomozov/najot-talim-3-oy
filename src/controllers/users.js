@@ -43,7 +43,6 @@ exports.deleteUser = async (req, res) => {
       type: "success",
     });
     res.redirect("/users");
-    // res.render("users/admin/delete", { data: {}, user: user[0] });
   } else {
     res.render("./error/404", {
       data: { message: "User Not Found" },

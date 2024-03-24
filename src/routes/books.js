@@ -13,36 +13,11 @@ const {
   deleteBookPage,
   deleteBook,
 } = require("../controllers/books");
-// const {} = require("../controllers/guides");
 
 // all guide
 router.get("/", getAllBooksPage);
 
-// router.get("/create", accessCheckerMid("admin"), createGuidePage);
-
-// router.post(
-//   "/create",
-//   accessCheckerMid("admin"),
-//   validate(createGuideSchem, "/guides/create"),
-//   createGude
-// );
-
-// router.get("/:id/delete", deleteGuidePage);
-
-// router.post("/delete", accessCheckerMid("admin"), deleteGude);
-
-// // get edit by id
-// router.get("/:id/edit", accessCheckerMid("admin"), editGuidePage);
-
-// // post edit by id
-// router.post(
-//   "/:id/edit",
-//   accessCheckerMid("admin"),
-//   validate(createGuideSchem, "/guides"),
-//   editGuide
-// );
-
-// // get guide by id
+// get guide by id
 router.get("/books/create", accessCheckerMid("admin"), createBookPage);
 router.post(
   "/books/create",

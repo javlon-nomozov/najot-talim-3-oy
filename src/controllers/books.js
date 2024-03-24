@@ -10,6 +10,7 @@ const {increaseAuthorBookCount, decreaseAuthorBookCount} = require("../models/au
 const {increaseCategoryBookCount, decreaseCategoryBookCount} = require("../models/category");
 const { getAllCategories } = require("../models/category");
 const { getAllAuthors } = require("../models/author");
+const { getCommentsByBookId } = require("../models/comment");
 
 /**
  * @param {express.Request} req
@@ -19,7 +20,7 @@ const { getAllAuthors } = require("../models/author");
 
 module.exports.getAllBooksPage = async (req, res) => {
   const alerts = req.flash.get("alerts");
-  const booksArr = Object.values(await getAllBooks());
+  const booksArr = Object.values(await getAllBooks()).reverse();
   const authorsObj = await getAllAuthors();
   const categoryObj = await getAllCategories();
   booksArr.forEach((book) => {
@@ -35,7 +36,8 @@ module.exports.getABookPage = async (req, res) => {
     const book = await getBookById(req.params.id);
     const authors = await getAllAuthors()
     const categories = await getAllCategories()
-    return res.render("./books/details", { alerts, book, authors, categories });
+    const comments = await getCommentsByBookId(req.params.id);
+    return res.render("./books/details", { alerts, book, authors, categories, comments });
   } catch (error) {
     req.flash("alerts", { type: "danger", message: error.message });
     res.redirect("/");
@@ -46,7 +48,6 @@ module.exports.createBookPage = async (req, res) => {
   const alerts = req.flash.get("alerts");
   const authors = Object.values(await getAllAuthors());
   const categories = Object.values(await getAllCategories());
-  console.log({ alerts, book: "", categories, authors });
   return res.render("./books/admin/create", {
     alerts,
     book: "",

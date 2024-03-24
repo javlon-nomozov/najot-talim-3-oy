@@ -7,7 +7,6 @@ const orderSchema = Joi.object({
   clientPhone: Joi.string().required(),
   quantity: Joi.number().default(1),
   address: Joi.string().required(),
-  // totalPrice: Joi.number().required(),
 });
 
 changeOrderStatus = Joi.object({

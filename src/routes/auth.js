@@ -1,4 +1,3 @@
-// const { loginPage, login, logout } = require("../controllers/auth");
 const {
   registerPage,
   register,

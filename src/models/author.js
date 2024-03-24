@@ -28,7 +28,7 @@ async function addAuthor(name) {
     const newAuthor = {
       id: uuid(),
       name,
-      bookCount: 0, // Initialize bookCount to 0 when adding a new author
+      bookCount: 0, 
     };
     authors[newAuthor.id] = newAuthor;
 

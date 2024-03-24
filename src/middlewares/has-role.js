@@ -15,7 +15,6 @@ module.exports = function (...allowedRoles) {
       type: "danger",
     });
 
-    // res.status(403).send('Is not allowed go back to <a href="/">hamepage</a>');
     res.redirect("/");
   };
 };

@@ -91,7 +91,6 @@ async function updateUserById(id, updatedUser) {
         );
       }
     } catch (error) {
-      // users = {};
       return reject(new Error(`User not found with id: ${id}`));
     }
     if (!users[id]) {
@@ -120,8 +119,6 @@ async function deleteUserById(id) {
       }
       const deletedUser = { ...users[id] };
       delete users[id];
-      console.log(`after deleting user with id:${id}`, users);
-      console.log(`deleted user:`, deletedUser);
       fs.writeFile(filePath, JSON.stringify(users), (err) => {
         if (err) {
           return reject(err);
@@ -134,32 +131,6 @@ async function deleteUserById(id) {
     }
   });
 }
-
-// getAllUsers().then((data)=>{
-//   console.log(data);
-// })
-
-// addUser("Javlon", "ussee", "1234").then((data) => {
-//   console.log(data);
-// });
-
-// updateUserById("5962a87e-358a-4b3b-9ef2-7db7c59943ee", {
-//   // id: "5da6b775-bbf2-4dfa-8e55-f99c4d977cb6",
-//   name: "Javlon",
-//   username: "user1",
-//   password: "12345",
-// }).then((data) => {
-//   console.log(data);
-// });
-
-// deleteUserById("5962a87e-358a-4b3b-9ef2-7db7c59943ee").then((data) => {
-//   console.log(data);
-// });
-
-// (async () => {
-//   const users = await getAllUsers();
-//   console.log(users);
-// })();
 
 module.exports = {
   getAllUsers,

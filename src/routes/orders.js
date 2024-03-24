@@ -16,5 +16,4 @@ router.get("/books", createOrderPage);
 router.use("/", accessCheckerMid('admin','user'));
 router.get("/", allOrdersPage);
 router.post("/:id/change-status", changeOrderStatus);
-// router.post("/:id/delete", deleteOrder);
 module.exports = router;

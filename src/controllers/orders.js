@@ -13,9 +13,12 @@ const {
  */
 
 exports.allOrdersPage = async (req, res, next) => {
-  books = await getAllBooks();
+  const books = await getAllBooks();
   const alerts = req.flash.get("alerts");
-  const orders = Object.values(await getAllOrders());
+  let orders = Object.values(await getAllOrders());
+  if (req.user.role !== "admin") {
+    orders = orders.filter((order) => order.clientName === req.user.name);
+  }
   orders.forEach((order) => {
     order.bookTitle = books[order.bookId].title;
   });
@@ -26,8 +29,6 @@ exports.createOrderPage = (req, res, next) => {
   const alerts = req.flash.get("alerts");
   const { bookId, quantity } = req.query;
 
-  //   const alerts = req.flash.get("alerts");
-  //   res.render("orders/create", { guide: {}, alerts, });
   res.render("orders/create", {
     order: {},
     alerts,
@@ -65,8 +66,7 @@ exports.createOrder = async (req, res) => {
         totalPrice,
         status
       );
-      console.log(bookId, { copies: book.copies - quantity });
-      console.log(await updateBookById(bookId, { copies: book.copies - quantity }));
+      await updateBookById(bookId, { copies: book.copies - quantity })
       req.flash.set("alerts", {
         type: "success",
         message: "Order created successfully",

@@ -15,7 +15,7 @@ async function getAllComments() {
   });
 }
 
-async function addComment(content, userId, bookId) {
+async function addComment(content, ownerName, bookId) {
   return new Promise(async (resolve, reject) => {
     let comments;
     try {
@@ -25,7 +25,8 @@ async function addComment(content, userId, bookId) {
     }
 
     const newComment = {
-      userId,
+      id: uuid(),
+      ownerName,
       content,
     };
 
@@ -56,7 +57,7 @@ async function getCommentsByBookId(bookId) {
   });
 }
 
-async function updateComment(userId, bookId, updatedComment) {
+async function updateComment(commentId, updatedComment) {
   return new Promise(async (resolve, reject) => {
     let comments;
     try {
@@ -65,16 +66,18 @@ async function updateComment(userId, bookId, updatedComment) {
       comments = {};
     }
 
-    if (!comments[bookId]) {
-      return reject(new Error(`Comments not found for bookId: ${bookId}`));
-    }
+    let found = false;
+    Object.keys(comments).forEach((bookId) => {
+      const index = comments[bookId].findIndex((comment) => comment.id === commentId);
+      if (index !== -1) {
+        found = true;
+        comments[bookId][index] = { ...comments[bookId][index], ...updatedComment };
+      }
+    });
 
-    const index = comments[bookId].findIndex((comment) => comment.userId === userId);
-    if (index === -1) {
-      return reject(new Error(`Comment not found for userId: ${userId}`));
+    if (!found) {
+      return reject(new Error(`Comment not found with id: ${commentId}`));
     }
-
-    comments[bookId][index] = { ...comments[bookId][index], ...updatedComment };
 
     fs.writeFile(filePath, JSON.stringify(comments), (err) => {
       if (err) {
@@ -85,32 +88,33 @@ async function updateComment(userId, bookId, updatedComment) {
   });
 }
 
-async function deleteComment(userId, bookId) {
+async function deleteComment(commentId) {
   return new Promise(async (resolve, reject) => {
     let comments;
     try {
       comments = await getAllComments();
 
-      if (!comments[bookId]) {
-        return reject(new Error(`Comments not found for bookId: ${bookId}`));
-      }
-
-      const index = comments[bookId].findIndex((comment) => comment.userId === userId);
-      if (index === -1) {
-        return reject(new Error(`Comment not found for userId: ${userId}`));
-      }
-
-      const deletedComment = comments[bookId].splice(index, 1)[0];
-
-      fs.writeFile(filePath, JSON.stringify(comments), (err) => {
-        if (err) {
-          return reject(err);
+      let found = false;
+      Object.keys(comments).forEach((bookId) => {
+        const index = comments[bookId].findIndex((comment) => comment.id === commentId);
+        if (index !== -1) {
+          found = true;
+          const deletedComment = comments[bookId].splice(index, 1)[0];
+          fs.writeFile(filePath, JSON.stringify(comments), (err) => {
+            if (err) {
+              return reject(err);
+            }
+            resolve(deletedComment);
+          });
         }
-        resolve(deletedComment);
       });
+
+      if (!found) {
+        return reject(new Error(`Comment not found with id: ${commentId}`));
+      }
     } catch (error) {
       comments = {};
-      return reject(new Error(`Comments not found for bookId: ${bookId}`));
+      return reject(new Error(`Comment not found with id: ${commentId}`));
     }
   });
 }

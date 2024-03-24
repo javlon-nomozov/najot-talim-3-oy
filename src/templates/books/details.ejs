@@ -15,13 +15,8 @@
         </p>
         <p>
           Category:
-          <a
-            href="/categories/<%= book.categoryId %>"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <%= categories[book.categoryId].name %></a
-          >
+          <a href="/categories/<%= book.categoryId %>" target="_blank" rel="noopener noreferrer" >
+            <%= categories[book.categoryId].name %></a>
         </p>
         <p>Copies: <%= book.copies %></p>
         <p>Price: $<%= book.price %></p>
@@ -32,10 +27,10 @@
         <p>Exist: <b><%= book.copies %></b></p>
       </div>
       <br />
-      <form action="/orders/books">
-        <input type="hidden" name="bookId" value="<%= book.id %>" />
+      <form class="form-group" action="/orders/books">
+        <input type="hidden" name="bookId" value="<%= book.id %>"/>
         <label for="quantity">Quantity:</label>
-        <input type="number" id="quantity" name="quantity" value="1" min="1" />
+        <input style="max-width: 400px;"  type="number" id="quantity" name="quantity" value="1" min="1" />
         <button class="btn" type="submit">Order</button>
       </form>
       <% if (currentUser.role ==='admin') { %>
@@ -47,4 +42,35 @@
       <% } %>
     </div>
   </section>
+  <br>
+  <section class="comment-section">
+    <form class="form-group" action="/comments/create" method="POST">
+      <input type="hidden" name="bookId" value="<%= book.id %>" />
+      <% if (currentUser.name) { %>
+      <input type="hidden" name="ownerName" value="<%= currentUser.name %>" />
+      <% } else { %>
+      <label for="content">Your name:</label>
+      <input style="max-width: 400px;"  type="text" name="ownerName" required />
+      <% } %>
+      <label for="content">Add Comment:</label>
+      <textarea style="max-width: 400px; max-height: 70px;" id="content" name="content" rows="4" cols="50" required></textarea>
+      <button class="btn" type="submit">Post Comment</button>
+    </form>
+    <h3>Comments</h3>
+    <% if (comments.length) { %>
+      <ul class="comment-list">
+        <% comments.forEach(comment => { %>
+          <li class="comment-item">
+            <div class="comment-info">
+              <p style="opacity: 0.9; display: inline-block; background-color: aquamarine; padding: 5px 10px;">Owner: | <%= comment.ownerName %></p>
+              <p>Content: <%- comment.content %></p>
+            </div>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No comments yet. Add yours</p>
+    <% } %>
+  </section>
 </main>
+

@@ -36,7 +36,7 @@ module.exports.getABookPage = async (req, res) => {
     const book = await getBookById(req.params.id);
     const authors = await getAllAuthors()
     const categories = await getAllCategories()
-    const comments = await getCommentsByBookId(req.params.id);
+    const comments = (await getCommentsByBookId(req.params.id)).reverse();
     return res.render("./books/details", { alerts, book, authors, categories, comments });
   } catch (error) {
     req.flash("alerts", { type: "danger", message: error.message });

@@ -1,7 +1,6 @@
 const fs = require("fs");
 const { join: path } = require("path");
 const { v4: uuid } = require("uuid");
-const slugify = require("slugify");
 
 const filePath = path(__dirname, "..", "db", "authors.json");
 
